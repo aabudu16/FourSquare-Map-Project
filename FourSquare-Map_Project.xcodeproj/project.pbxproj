@@ -20,6 +20,7 @@
 		857926CE2370BB800063332D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C72370BB800063332D /* ImageHelper.swift */; };
 		857926D02370BBED0063332D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926CF2370BBED0063332D /* VenueModel.swift */; };
 		857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D12370BFAF0063332D /* FourSquareAPIClient.swift */; };
+		857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D52370D6610063332D /* MapCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		857926C72370BB800063332D /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		857926CF2370BBED0063332D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		857926D12370BFAF0063332D /* FourSquareAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIClient.swift; sourceTree = "<group>"; };
+		857926D52370D6610063332D /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				8579269C2370AF0B0063332D /* AppDelegate.swift */,
 				8579269E2370AF0B0063332D /* SceneDelegate.swift */,
 				857926A02370AF0B0063332D /* MapViewController.swift */,
+				857926D52370D6610063332D /* MapCollectionViewCell.swift */,
 				857926CF2370BBED0063332D /* VenueModel.swift */,
 				857926BE2370BA220063332D /* Secrets.swift */,
 				857926A52370AF100063332D /* Assets.xcassets */,
@@ -228,6 +231,7 @@
 				857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */,
 				857926CA2370BB800063332D /* NetworkHelper.swift in Sources */,
 				857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */,
+				857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */,
 				857926A12370AF0B0063332D /* MapViewController.swift in Sources */,
 				857926CB2370BB800063332D /* AppError.swift in Sources */,
 				857926BF2370BA220063332D /* Secrets.swift in Sources */,

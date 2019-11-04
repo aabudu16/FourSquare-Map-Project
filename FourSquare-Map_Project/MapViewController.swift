@@ -10,11 +10,35 @@ import UIKit
 import MapKit
 import CoreLocation
 
+//MARK: Enum
+enum Identifiers:String{
+    case mapCell
+}
+
 class MapViewController: UIViewController {
+    //MARK: Properties
+    var venue = [Venue](){
+        didSet{
+            collectionView.reloadData()
+        }
+    }
     
+//MARK: UI Objects
     lazy var mapView:MKMapView = {
         let map = MKMapView()
         return map
+    }()
+    
+    lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
+        cv.register(MapCollectionViewCell.self, forCellWithReuseIdentifier: Identifiers.mapCell.rawValue)
+        cv.delegate = self
+        cv.dataSource = self
+        
+        return cv
     }()
     
     lazy var locationSearchBar:UISearchBar = {
@@ -39,6 +63,16 @@ class MapViewController: UIViewController {
         return searchBar
     }()
     
+    lazy var listButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "line.horizontal.3.decrease"), for: .normal)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        button.backgroundColor = .orange
+        return button
+    }()
+    
+    //MARK: lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -46,9 +80,12 @@ class MapViewController: UIViewController {
         configureLocationSearchBar()
         configureStateSearchBar()
         configureMapViewConstriants()
+        configureListButtonConstraints()
         
     }
     
+    
+    //MARK: Constraints function
     private func configureMapViewConstriants(){
         self.view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,8 +107,31 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([stateSearchBar.topAnchor.constraint(equalTo: self.locationSearchBar.bottomAnchor, constant:  5),stateSearchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), stateSearchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), stateSearchBar.heightAnchor.constraint(equalTo: locationSearchBar.heightAnchor)])
     }
     
+    private func configureListButtonConstraints(){
+        self.view.addSubview(listButton)
+        
+        listButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([listButton.topAnchor.constraint(equalTo: stateSearchBar.bottomAnchor, constant:  10), listButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -10), listButton.heightAnchor.constraint(equalToConstant: 40), listButton.widthAnchor.constraint(equalToConstant: 40)])
+    }
+    
 }
 
+//MARK:
+extension MapViewController:UICollectionViewDelegate{}
+extension MapViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return venue.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
+        
+        return cell
+    }
+    
+    
+}
 extension MapViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.showsCancelButton = true
