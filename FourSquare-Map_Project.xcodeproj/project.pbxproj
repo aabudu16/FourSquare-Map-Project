@@ -77,6 +77,10 @@
 		857926902370AF0B0063332D = {
 			isa = PBXGroup;
 			children = (
+				857926BE2370BA220063332D /* Secrets.swift */,
+				857926DA2371155A0063332D /* View */,
+				857926D9237115240063332D /* View Controllers */,
+				857926DB2371156C0063332D /* Models */,
 				857926C02370BB800063332D /* Network Files */,
 				8579269B2370AF0B0063332D /* FourSquare-Map_Project */,
 				857926B22370AF110063332D /* FourSquare-Map_ProjectTests */,
@@ -98,11 +102,6 @@
 			children = (
 				8579269C2370AF0B0063332D /* AppDelegate.swift */,
 				8579269E2370AF0B0063332D /* SceneDelegate.swift */,
-				857926A02370AF0B0063332D /* MapViewController.swift */,
-				857926D72370E3DD0063332D /* CollectionsViewController.swift */,
-				857926D52370D6610063332D /* MapCollectionViewCell.swift */,
-				857926CF2370BBED0063332D /* VenueModel.swift */,
-				857926BE2370BA220063332D /* Secrets.swift */,
 				857926A52370AF100063332D /* Assets.xcassets */,
 				857926A72370AF100063332D /* LaunchScreen.storyboard */,
 				857926AA2370AF100063332D /* Info.plist */,
@@ -129,6 +128,31 @@
 				857926C72370BB800063332D /* ImageHelper.swift */,
 			);
 			path = "Network Files";
+			sourceTree = "<group>";
+		};
+		857926D9237115240063332D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				857926A02370AF0B0063332D /* MapViewController.swift */,
+				857926D72370E3DD0063332D /* CollectionsViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		857926DA2371155A0063332D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				857926D52370D6610063332D /* MapCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		857926DB2371156C0063332D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				857926CF2370BBED0063332D /* VenueModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
