@@ -22,6 +22,8 @@
 		857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D12370BFAF0063332D /* FourSquareAPIClient.swift */; };
 		857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D52370D6610063332D /* MapCollectionViewCell.swift */; };
 		857926D82370E3DD0063332D /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D72370E3DD0063332D /* CollectionsViewController.swift */; };
+		857926DD237116830063332D /* ResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926DC237116830063332D /* ResultListViewController.swift */; };
+		857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926DE2371CD820063332D /* ResultListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		857926D12370BFAF0063332D /* FourSquareAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIClient.swift; sourceTree = "<group>"; };
 		857926D52370D6610063332D /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 		857926D72370E3DD0063332D /* CollectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
+		857926DC237116830063332D /* ResultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListViewController.swift; sourceTree = "<group>"; };
+		857926DE2371CD820063332D /* ResultListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 			children = (
 				857926A02370AF0B0063332D /* MapViewController.swift */,
 				857926D72370E3DD0063332D /* CollectionsViewController.swift */,
+				857926DC237116830063332D /* ResultListViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				857926D52370D6610063332D /* MapCollectionViewCell.swift */,
+				857926DE2371CD820063332D /* ResultListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -261,7 +267,9 @@
 				857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */,
 				857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */,
 				857926A12370AF0B0063332D /* MapViewController.swift in Sources */,
+				857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */,
 				857926CB2370BB800063332D /* AppError.swift in Sources */,
+				857926DD237116830063332D /* ResultListViewController.swift in Sources */,
 				857926BF2370BA220063332D /* Secrets.swift in Sources */,
 				857926D02370BBED0063332D /* VenueModel.swift in Sources */,
 				8579269D2370AF0B0063332D /* AppDelegate.swift in Sources */,

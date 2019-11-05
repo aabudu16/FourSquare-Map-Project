@@ -74,6 +74,7 @@ class MapViewController: UIViewController {
         button.layer.shadowRadius = 20.0
         button.layer.shadowOpacity = 0.5
         button.layer.masksToBounds = false
+        button.addTarget(self, action: #selector(handleListButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -81,7 +82,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
         configureLocationSearchBar()
         configureStateSearchBar()
         configureMapViewConstriants()
@@ -90,6 +91,10 @@ class MapViewController: UIViewController {
         
     }
     
+    @objc func handleListButtonPressed(){
+        let resultVC = ResultListViewController()
+        navigationController?.pushViewController(resultVC, animated: true)
+    }
     
     //MARK: Constraints function
     private func configureMapViewConstriants(){
@@ -126,7 +131,7 @@ class MapViewController: UIViewController {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10), collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), collectionView.heightAnchor.constraint(equalToConstant: 200)])
+        NSLayoutConstraint.activate([collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 15), collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5), collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), collectionView.heightAnchor.constraint(equalToConstant: 200)])
     }
     
 }
@@ -147,7 +152,7 @@ extension MapViewController: UICollectionViewDataSource{
 extension MapViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let virticalCellCGSize = CGSize(width: 150, height: 150)
+        let virticalCellCGSize = CGSize(width: 120, height: 120)
         return virticalCellCGSize
     }
 }
