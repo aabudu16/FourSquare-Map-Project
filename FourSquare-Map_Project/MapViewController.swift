@@ -69,6 +69,11 @@ class MapViewController: UIViewController {
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
         button.backgroundColor = .orange
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 5.0)
+        button.layer.shadowRadius = 20.0
+        button.layer.shadowOpacity = 0.5
+        button.layer.masksToBounds = false
         return button
     }()
     
@@ -81,6 +86,7 @@ class MapViewController: UIViewController {
         configureStateSearchBar()
         configureMapViewConstriants()
         configureListButtonConstraints()
+        configureCollectionViewConstraints()
         
     }
     
@@ -115,22 +121,35 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([listButton.topAnchor.constraint(equalTo: stateSearchBar.bottomAnchor, constant:  10), listButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -10), listButton.heightAnchor.constraint(equalToConstant: 40), listButton.widthAnchor.constraint(equalToConstant: 40)])
     }
     
+    private func configureCollectionViewConstraints(){
+        self.view.addSubview(collectionView)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10), collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), collectionView.heightAnchor.constraint(equalToConstant: 200)])
+    }
+    
 }
 
-//MARK:
+//MARK: Extensions
 extension MapViewController:UICollectionViewDelegate{}
 extension MapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return venue.count
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
-        
+        cell.backgroundColor = .red
         return cell
     }
-    
-    
+}
+extension MapViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let virticalCellCGSize = CGSize(width: 150, height: 150)
+        return virticalCellCGSize
+    }
 }
 extension MapViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
