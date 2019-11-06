@@ -18,7 +18,7 @@ enum Identifiers:String{
 class MapViewController: UIViewController {
     //MARK: Properties
     private let locationManger = CLLocationManager()
-    private var currentLocation: CLLocationCoordinate2D?
+    private var currentCoordinate: CLLocationCoordinate2D?
     let initialLocation = CLLocation(latitude: 40.742054, longitude: -73.769417)
     let searchRadius: CLLocationDistance = 2000
     
@@ -48,7 +48,7 @@ class MapViewController: UIViewController {
         return cv
     }()
     
-    lazy var locationSearchBar:UISearchBar = {
+    lazy var querySearchBar:UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
         searchBar.placeholder = " Search location"
@@ -130,14 +130,23 @@ class MapViewController: UIViewController {
             locationManger.requestAlwaysAuthorization()
             break
         case .authorizedWhenInUse, .authorizedAlways:
-            
-            locationManger.desiredAccuracy = kCLLocationAccuracyBest
-            locationManger.startUpdatingLocation()
+            beginLocationUpdates(locationManager: locationManger)
         case .denied:
             break
         default:
             break
         }
+    }
+    
+    private func beginLocationUpdates(locationManager: CLLocationManager){
+        mapView.showsUserLocation = true
+        locationManger.desiredAccuracy = kCLLocationAccuracyBest
+        locationManger.startUpdatingLocation()
+    }
+    
+    private func zoomToLatestLocation(with coordinate:CLLocationCoordinate2D){
+        let zoomRegion = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        mapView.setRegion(zoomRegion, animated: true)
     }
     
     
@@ -150,17 +159,17 @@ class MapViewController: UIViewController {
     }
     
     private func configureLocationSearchBar(){
-        self.view.addSubview(locationSearchBar)
+        self.view.addSubview(querySearchBar)
         
-        locationSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([locationSearchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),locationSearchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), locationSearchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), locationSearchBar.heightAnchor.constraint(equalToConstant: 45)])
+        querySearchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([querySearchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),querySearchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), querySearchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), querySearchBar.heightAnchor.constraint(equalToConstant: 45)])
     }
     
     private func configureStateSearchBar(){
         self.view.addSubview(stateSearchBar)
         
         stateSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([stateSearchBar.topAnchor.constraint(equalTo: self.locationSearchBar.bottomAnchor, constant:  5),stateSearchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), stateSearchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), stateSearchBar.heightAnchor.constraint(equalTo: locationSearchBar.heightAnchor)])
+        NSLayoutConstraint.activate([stateSearchBar.topAnchor.constraint(equalTo: self.querySearchBar.bottomAnchor, constant:  5),stateSearchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), stateSearchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), stateSearchBar.heightAnchor.constraint(equalTo: querySearchBar.heightAnchor)])
     }
     
     private func configureListButtonConstraints(){
@@ -203,22 +212,62 @@ extension MapViewController: UICollectionViewDelegateFlowLayout{
 }
 extension MapViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.showsCancelButton = true
+        querySearchBar.showsCancelButton = true
         return true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder()
+        querySearchBar.showsCancelButton = false
+        querySearchBar.resignFirstResponder()
     }
-}
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+                       searchBar.resignFirstResponder()
+                       let searchRequest = MKLocalSearch.Request()
+                       searchRequest.naturalLanguageQuery = stateSearchBar.text
+                       let activeSearch = MKLocalSearch(request: searchRequest)
+                       activeSearch.start { (response, error) in
+                           if response == nil {
+                               print(error!)
+                           }else {
+                            let lat = response?.boundingRegion.center.latitude
+                            let long = response?.boundingRegion.center.longitude
+                            print("lat \(lat)")
+                            print("lng \(long)")
+                           
+                            let annotations = self.mapView.annotations
+                            self.mapView.removeAnnotations(annotations)
+                            self.getMapData(lat: lat!, long: long!, query: self.querySearchBar.text!)
+                           }
+                }
+        }
+    }
+ 
+
+
+
+
+
+
+
+
+   
+
+
 
 extension MapViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let latestLocation = locations.first else {return}
         
+        if currentCoordinate == nil {
+            zoomToLatestLocation(with: latestLocation.coordinate)
+        }
+        currentCoordinate = latestLocation.coordinate
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
+        if status == .authorizedAlways || status == .authorizedWhenInUse{
+            beginLocationUpdates(locationManager: locationManger)
+        }
     }
 }
