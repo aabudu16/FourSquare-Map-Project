@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,9 @@
 		857926D82370E3DD0063332D /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D72370E3DD0063332D /* CollectionsViewController.swift */; };
 		857926DD237116830063332D /* ResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926DC237116830063332D /* ResultListViewController.swift */; };
 		857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926DE2371CD820063332D /* ResultListTableViewCell.swift */; };
+		857926E323724CBA0063332D /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E223724CBA0063332D /* DetailedViewController.swift */; };
+		857926E523733AB40063332D /* CustomLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E423733AB20063332D /* CustomLayer.swift */; };
+		916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		451C238C305DE287D5473D60 /* Pods-FourSquare-Map_Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FourSquare-Map_Project.debug.xcconfig"; path = "Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project.debug.xcconfig"; sourceTree = "<group>"; };
+		4D53AC93C7BD37D5AB012E1D /* Pods-FourSquare-Map_Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FourSquare-Map_Project.release.xcconfig"; path = "Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project.release.xcconfig"; sourceTree = "<group>"; };
+		5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FourSquare_Map_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		857926992370AF0B0063332D /* FourSquare-Map_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FourSquare-Map_Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8579269C2370AF0B0063332D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8579269E2370AF0B0063332D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +64,8 @@
 		857926D72370E3DD0063332D /* CollectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		857926DC237116830063332D /* ResultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListViewController.swift; sourceTree = "<group>"; };
 		857926DE2371CD820063332D /* ResultListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListTableViewCell.swift; sourceTree = "<group>"; };
+		857926E223724CBA0063332D /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
+		857926E423733AB20063332D /* CustomLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		168EE3C013B6961672128CDF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				451C238C305DE287D5473D60 /* Pods-FourSquare-Map_Project.debug.xcconfig */,
+				4D53AC93C7BD37D5AB012E1D /* Pods-FourSquare-Map_Project.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		17710DB40B1ED059F3FCC804 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		857926902370AF0B0063332D = {
 			isa = PBXGroup;
 			children = (
@@ -86,9 +112,12 @@
 				857926D9237115240063332D /* View Controllers */,
 				857926DB2371156C0063332D /* Models */,
 				857926C02370BB800063332D /* Network Files */,
+				857926E623733ABC0063332D /* Custom Extensions */,
 				8579269B2370AF0B0063332D /* FourSquare-Map_Project */,
 				857926B22370AF110063332D /* FourSquare-Map_ProjectTests */,
 				8579269A2370AF0B0063332D /* Products */,
+				168EE3C013B6961672128CDF /* Pods */,
+				17710DB40B1ED059F3FCC804 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +169,7 @@
 				857926A02370AF0B0063332D /* MapViewController.swift */,
 				857926D72370E3DD0063332D /* CollectionsViewController.swift */,
 				857926DC237116830063332D /* ResultListViewController.swift */,
+				857926E223724CBA0063332D /* DetailedViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -161,6 +191,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		857926E623733ABC0063332D /* Custom Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				857926E423733AB20063332D /* CustomLayer.swift */,
+			);
+			path = "Custom Extensions";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,9 +206,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 857926B82370AF110063332D /* Build configuration list for PBXNativeTarget "FourSquare-Map_Project" */;
 			buildPhases = (
+				12A414AC81385CFF00588B4C /* [CP] Check Pods Manifest.lock */,
 				857926952370AF0B0063332D /* Sources */,
 				857926962370AF0B0063332D /* Frameworks */,
 				857926972370AF0B0063332D /* Resources */,
+				590A4FBC21A619905119CB7A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,6 +296,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		12A414AC81385CFF00588B4C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FourSquare-Map_Project-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		590A4FBC21A619905119CB7A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		857926952370AF0B0063332D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -263,7 +345,9 @@
 			files = (
 				857926D82370E3DD0063332D /* CollectionsViewController.swift in Sources */,
 				857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */,
+				857926E323724CBA0063332D /* DetailedViewController.swift in Sources */,
 				857926CA2370BB800063332D /* NetworkHelper.swift in Sources */,
+				857926E523733AB40063332D /* CustomLayer.swift in Sources */,
 				857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */,
 				857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */,
 				857926A12370AF0B0063332D /* MapViewController.swift in Sources */,
@@ -424,6 +508,7 @@
 		};
 		857926B92370AF110063332D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 451C238C305DE287D5473D60 /* Pods-FourSquare-Map_Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -441,6 +526,7 @@
 		};
 		857926BA2370AF110063332D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D53AC93C7BD37D5AB012E1D /* Pods-FourSquare-Map_Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

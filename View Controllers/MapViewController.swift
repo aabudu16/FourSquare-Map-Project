@@ -17,13 +17,20 @@ enum Identifiers:String{
 
 class MapViewController: UIViewController {
     //MARK: Properties
-    var venue = [Venue](){
+    private let locationManger = CLLocationManager()
+    private var currentLocation: CLLocationCoordinate2D?
+    let initialLocation = CLLocation(latitude: 40.742054, longitude: -73.769417)
+    let searchRadius: CLLocationDistance = 2000
+    
+    
+    var venues = [Venue](){
         didSet{
             collectionView.reloadData()
         }
     }
     
-//MARK: UI Objects
+    
+    //MARK: UI Objects
     lazy var mapView:MKMapView = {
         let map = MKMapView()
         return map
@@ -68,7 +75,7 @@ class MapViewController: UIViewController {
         button.setImage(UIImage(systemName: "line.horizontal.3.decrease"), for: .normal)
         button.layer.cornerRadius = 20
         button.clipsToBounds = true
-        button.backgroundColor = .orange
+        button.backgroundColor = .systemPurple
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 5.0)
         button.layer.shadowRadius = 20.0
@@ -82,19 +89,57 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationController?.navigationBar.topItem?.title = "Search"
         //navigationController?.isNavigationBarHidden = true
         configureLocationSearchBar()
         configureStateSearchBar()
         configureMapViewConstriants()
         configureListButtonConstraints()
         configureCollectionViewConstraints()
+        configureLocationService()
         
     }
-    
+    //MARK: @objc function
     @objc func handleListButtonPressed(){
+        
         let resultVC = ResultListViewController()
         navigationController?.pushViewController(resultVC, animated: true)
     }
+    
+    //MARK: private functions
+    
+    private func getMapData(lat:Double, long:Double, query:String){
+        FourSquareAPIClient.shared.getData(lat: lat, long: long, query: query) { (result) in
+            switch result{
+            case .failure(let error):
+                print(error)
+            case .success(let venue):
+                DispatchQueue.main.async {
+                    self.venues = venue
+                }
+            }
+        }
+    }
+    
+    private func configureLocationService(){
+        locationManger.delegate = self
+        
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            locationManger.requestAlwaysAuthorization()
+            break
+        case .authorizedWhenInUse, .authorizedAlways:
+            
+            locationManger.desiredAccuracy = kCLLocationAccuracyBest
+            locationManger.startUpdatingLocation()
+        case .denied:
+            break
+        default:
+            break
+        }
+    }
+    
     
     //MARK: Constraints function
     private func configureMapViewConstriants(){
@@ -145,7 +190,7 @@ extension MapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
-        cell.backgroundColor = .red
+        CustomLayer.shared.createCustomlayer(layer: cell.layer)
         return cell
     }
 }
@@ -165,5 +210,15 @@ extension MapViewController: UISearchBarDelegate{
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
+    }
+}
+
+extension MapViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
     }
 }

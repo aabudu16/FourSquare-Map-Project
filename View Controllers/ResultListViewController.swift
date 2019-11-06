@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 enum Identifier:String{
     case resultListCell
 }
@@ -14,7 +15,7 @@ class ResultListViewController: UIViewController {
     // MARK: - Objects
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .systemPurple
         tableView.register(ResultListTableViewCell.self, forCellReuseIdentifier: Identifier.resultListCell.rawValue)
         tableView.dataSource = self
         tableView.delegate = self
@@ -46,6 +47,19 @@ extension ResultListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        let verticalPadding: CGFloat = 5
+        let horizontalPadding: CGFloat = 10
+
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 20    //if you want round edges
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x , y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: horizontalPadding, dy: verticalPadding)
+        cell.layer.mask = maskLayer
+        
+    }
+
 }
 extension ResultListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,7 +68,13 @@ extension ResultListViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.resultListCell.rawValue) as? ResultListTableViewCell else {return UITableViewCell()}
-        
+//cell.layer.cornerRadius = 8
+//cell.layer.shadowOffset = CGSize(width: 0, height: 3)
+//cell.layer.shadowRadius = 3
+//cell.layer.shadowOpacity = 0.3
+//cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+//cell.layer.shouldRasterize = true
+//cell.layer.rasterizationScale = UIScreen.main.scale
         return cell
     }
     

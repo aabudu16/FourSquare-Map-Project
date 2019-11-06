@@ -11,7 +11,7 @@ import UIKit
 class MapCollectionViewCell: UICollectionViewCell {
     lazy var imageView:UIImageView = {
     let image = UIImageView()
-        image.backgroundColor = .blue
+        image.image = #imageLiteral(resourceName: "imagePlaceholder")
         return image
     }()
     
@@ -32,3 +32,4 @@ class MapCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

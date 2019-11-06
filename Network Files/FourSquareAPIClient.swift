@@ -11,8 +11,8 @@ import Foundation
 struct FourSquareAPIClient{
     static let shared = FourSquareAPIClient()
     
-    func getData(complitionHandler:@escaping(Result<[Venue], AppError>)->()){
-    let urlString = "https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=\(Secret.clientID)&client_secret=\(Secret.clientSecrets)&query=burgers&v=20191104"
+    func getData(lat:Double, long:Double, query:String, complitionHandler:@escaping(Result<[Venue], AppError>)->()){
+    let urlString = "https://api.foursquare.com/v2/venues/search?ll=\(lat),\(long)&client_id=\(Secret.clientID)&client_secret=\(Secret.clientSecrets)&query=\(query)&v=20191104"
         guard let url = URL(string: urlString) else {
             complitionHandler(.failure(.badURL))
             return

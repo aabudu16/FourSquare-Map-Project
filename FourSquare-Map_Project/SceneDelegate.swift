@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
-       let mainView =  UINavigationController(rootViewController: createMainTabBarController())
+       let mainView =  createMainTabBarController()
         window?.rootViewController = mainView
         window?.makeKeyAndVisible()
     }
@@ -54,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func createMainTabBarController() -> UITabBarController {
-        let firstvc = MapViewController(),secondvc = CollectionsViewController()
+        let firstvc = UINavigationController(rootViewController:  MapViewController()),secondvc = UINavigationController(rootViewController: CollectionsViewController())
         firstvc.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 0)
         
         secondvc.tabBarItem = UITabBarItem(title: "Collection", image: UIImage(systemName: "folder.badge.plus"), tag: 1)
