@@ -8,13 +8,14 @@
 
 import UIKit
 
+ //MARK: Enum
 enum collectionIdentifiers:String{
     case collectionCell
 }
 class CollectionsViewController: UIViewController {
     
     
-    
+     //MARK: UI Objects
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -26,10 +27,25 @@ class CollectionsViewController: UIViewController {
         
         return cv
     }()
+    
+     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureCollectionViewConstraints()
+        configureNavigationBarButton()
+    }
+    
+    
+   //MARK: @objc function
+    @objc func addButtonPressed(){
+        print("addButtonPressed")
+    }
+    
+//MARK: Private functions
+    private func configureNavigationBarButton(){
+       let add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        navigationItem.rightBarButtonItem = add
     }
     
     private func configureCollectionViewConstraints(){
@@ -40,6 +56,8 @@ class CollectionsViewController: UIViewController {
         NSLayoutConstraint.activate([collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor), collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5), collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5), collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)])
     }
 }
+
+//MARK: Extensions
 extension CollectionsViewController: UICollectionViewDelegate{
     
 }
