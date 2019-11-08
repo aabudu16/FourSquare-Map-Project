@@ -244,7 +244,11 @@ class MapViewController: UIViewController {
 }
 
 //MARK: Extensions
-extension MapViewController:UICollectionViewDelegate{}
+extension MapViewController:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+    }
+}
 extension MapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return venues.count
