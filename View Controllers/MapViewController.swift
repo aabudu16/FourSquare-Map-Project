@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Hero
 
 //MARK: Enum
 enum Identifiers:String{
@@ -19,13 +20,32 @@ class MapViewController: UIViewController {
     //MARK: Properties
     private let locationManger = CLLocationManager()
     private var currentCoordinate: CLLocationCoordinate2D?
-    let initialLocation = CLLocation(latitude: 40.742054, longitude: -73.769417)
     let searchRadius: CLLocationDistance = 2000
     
-    
-    var venues = [Venue](){
+    var venueImageArray = [UIImage](){
         didSet{
-            collectionView.reloadData()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    var items = [Item](){
+        didSet{
+            self.collectionView.reloadData()
+        }
+    }
+    
+    var venues = [Venue]() {
+        didSet {
+            
+            let annotations = self.mapView.annotations
+            self.mapView.removeAnnotations(annotations)
+            for i in venues {
+                let newAnnotation = MKPointAnnotation()
+                newAnnotation.coordinate = CLLocationCoordinate2D(latitude: i.location?.lat ?? 40.6782, longitude: i.location?.lng ?? -73.9442)
+                newAnnotation.title = i.name
+                self.mapView.addAnnotation(newAnnotation)
+            }
+            self.collectionView.reloadData()
         }
     }
     
@@ -33,6 +53,7 @@ class MapViewController: UIViewController {
     //MARK: UI Objects
     lazy var mapView:MKMapView = {
         let map = MKMapView()
+        map.userTrackingMode = .followWithHeading
         return map
     }()
     
@@ -51,7 +72,7 @@ class MapViewController: UIViewController {
     lazy var querySearchBar:UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
-        searchBar.placeholder = " Search location"
+        searchBar.placeholder = " Search venue "
         searchBar.sizeToFit()
         searchBar.isTranslucent = false
         searchBar.layer.borderColor = UIColor.clear.cgColor
@@ -81,6 +102,7 @@ class MapViewController: UIViewController {
         button.layer.shadowRadius = 20.0
         button.layer.shadowOpacity = 0.5
         button.layer.masksToBounds = false
+        button.hero.id = "skyWalker"
         button.addTarget(self, action: #selector(handleListButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -90,7 +112,6 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.navigationController?.navigationBar.topItem?.title = "Search"
-        //navigationController?.isNavigationBarHidden = true
         configureLocationSearchBar()
         configureStateSearchBar()
         configureMapViewConstriants()
@@ -145,7 +166,7 @@ class MapViewController: UIViewController {
     }
     
     private func zoomToLatestLocation(with coordinate:CLLocationCoordinate2D){
-        let zoomRegion = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        let zoomRegion = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
         mapView.setRegion(zoomRegion, animated: true)
     }
     
@@ -194,15 +215,39 @@ class MapViewController: UIViewController {
 extension MapViewController:UICollectionViewDelegate{}
 extension MapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return venues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
+         let venue = venues[indexPath.item]
+        
+        FourSquareAPIClient.shared.getVenueImages(venueID: venue.id!) { (result) in
+            switch result{
+            case .failure:
+                self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
+            case .success(let items):
+                for item in items{
+                let url = URL(string: item.getUserImage())
+                    
+                    ImageHelper.shared.getImage(url: url!) { (result) in
+                        switch result{
+                        case .failure:
+                            self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
+                        case .success(let venueImage):
+                            self.venueImageArray.append(venueImage)
+                        }
+                    }
+                }
+            }
+        }
+        venueImageArray.forEach({cell.imageView.image = $0})
         CustomLayer.shared.createCustomlayer(layer: cell.layer)
         return cell
     }
 }
+
+
 extension MapViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -222,38 +267,50 @@ extension MapViewController: UISearchBarDelegate{
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-                       searchBar.resignFirstResponder()
-                       let searchRequest = MKLocalSearch.Request()
-                       searchRequest.naturalLanguageQuery = stateSearchBar.text
-                       let activeSearch = MKLocalSearch(request: searchRequest)
-                       activeSearch.start { (response, error) in
-                           if response == nil {
-                               print(error!)
-                           }else {
-                            let lat = response?.boundingRegion.center.latitude
-                            let long = response?.boundingRegion.center.longitude
-                            print("lat \(lat)")
-                            print("lng \(long)")
-                           
-                            let annotations = self.mapView.annotations
-                            self.mapView.removeAnnotations(annotations)
-                            self.getMapData(lat: lat!, long: long!, query: self.querySearchBar.text!)
-                           }
-                }
+        
+        //Activity indicator
+        let activityIndcator = UIActivityIndicatorView()
+        activityIndcator.style = .large
+        activityIndcator.center = self.view.center
+        activityIndcator.hidesWhenStopped = true
+        activityIndcator.startAnimating()
+        
+        self.view.addSubview(activityIndcator)
+        
+        // dismiss search bar
+        searchBar.resignFirstResponder()
+        
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = stateSearchBar.text
+        let activeSearch = MKLocalSearch(request: searchRequest)
+        activeSearch.start { (response, error) in
+            if response == nil {
+                print(error!)
+            }else {
+                
+                // dismiss activity indicator
+                activityIndcator.stopAnimating()
+                
+                // remove current anotations
+                let annotations = self.mapView.annotations
+                self.mapView.removeAnnotations(annotations)
+                
+                //get latitude and longitude
+                let lat = response?.boundingRegion.center.latitude
+                let long = response?.boundingRegion.center.longitude
+                //create new location Anntoation
+                let newAnnotation = MKPointAnnotation()
+                newAnnotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+                
+                //zoom in on the locations
+                
+                let coordinateRegion = MKCoordinateRegion.init(center: newAnnotation.coordinate, latitudinalMeters: self.searchRadius * 2.0, longitudinalMeters: self.searchRadius * 2.0)
+                self.mapView.setRegion(coordinateRegion, animated: true)
+                self.getMapData(lat: lat!, long: long!, query: self.querySearchBar.text!)
+            }
         }
     }
- 
-
-
-
-
-
-
-
-
-   
-
-
+}
 
 extension MapViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

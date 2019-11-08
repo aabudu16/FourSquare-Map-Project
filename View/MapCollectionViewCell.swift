@@ -11,7 +11,7 @@ import UIKit
 class MapCollectionViewCell: UICollectionViewCell {
     lazy var imageView:UIImageView = {
     let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "imagePlaceholder")
+       // image.image = #imageLiteral(resourceName: "imagePlaceholder")
         return image
     }()
     

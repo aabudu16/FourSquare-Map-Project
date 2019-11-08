@@ -12,6 +12,7 @@ import Hero
 class DetailedViewController: UIViewController {
     lazy var imageView:UIImageView = {
        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "imagePlaceholder")
         return image
     }()
     
@@ -37,6 +38,8 @@ class DetailedViewController: UIViewController {
     private func configureImageViewConstraints(){
     self.view.addSubview(imageView)
     imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor), imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor)])
         
         
     }

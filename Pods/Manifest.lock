@@ -1,16 +1,20 @@
 PODS:
   - Hero (1.4.0)
+  - MGSwipeTableCell (1.6.11)
 
 DEPENDENCIES:
   - Hero
+  - MGSwipeTableCell
 
 SPEC REPOS:
   trunk:
     - Hero
+    - MGSwipeTableCell
 
 SPEC CHECKSUMS:
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
 
-PODFILE CHECKSUM: f462019ef4991475d54da6d21a98c974bccd5114
+PODFILE CHECKSUM: f5661e7d1868cc03856bd3be44ccca22609c8984
 
 COCOAPODS: 1.8.4

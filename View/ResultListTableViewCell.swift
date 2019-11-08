@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MGSwipeTableCell
 
-class ResultListTableViewCell: UITableViewCell {
+class ResultListTableViewCell: MGSwipeTableCell {
     
     lazy var categoryImage:UIImageView = {
         let image = UIImageView()

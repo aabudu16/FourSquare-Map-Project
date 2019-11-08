@@ -26,6 +26,7 @@
 		857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926DE2371CD820063332D /* ResultListTableViewCell.swift */; };
 		857926E323724CBA0063332D /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E223724CBA0063332D /* DetailedViewController.swift */; };
 		857926E523733AB40063332D /* CustomLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E423733AB20063332D /* CustomLayer.swift */; };
+		857926E82374A36B0063332D /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E72374A36B0063332D /* PhotoModel.swift */; };
 		916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		857926DE2371CD820063332D /* ResultListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListTableViewCell.swift; sourceTree = "<group>"; };
 		857926E223724CBA0063332D /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		857926E423733AB20063332D /* CustomLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayer.swift; sourceTree = "<group>"; };
+		857926E72374A36B0063332D /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				857926CF2370BBED0063332D /* VenueModel.swift */,
+				857926E72374A36B0063332D /* PhotoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				857926DD237116830063332D /* ResultListViewController.swift in Sources */,
 				857926BF2370BA220063332D /* Secrets.swift in Sources */,
 				857926D02370BBED0063332D /* VenueModel.swift in Sources */,
+				857926E82374A36B0063332D /* PhotoModel.swift in Sources */,
 				8579269D2370AF0B0063332D /* AppDelegate.swift in Sources */,
 				8579269F2370AF0B0063332D /* SceneDelegate.swift in Sources */,
 				857926CE2370BB800063332D /* ImageHelper.swift in Sources */,

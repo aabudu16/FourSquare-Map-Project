@@ -8,6 +8,9 @@
 
 import UIKit
 import Hero
+import EventKit
+
+
 enum Identifier:String{
     case resultListCell
 }
@@ -27,6 +30,9 @@ class ResultListViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationItem.title = "Result List"
         configureTableViewConstraints()
+        
+        self.hero.isEnabled = true
+      
     }
     
     // MARK: - constraints
@@ -59,7 +65,29 @@ extension ResultListViewController: UITableViewDelegate{
         cell.layer.mask = maskLayer
         
     }
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailedVC = DetailedViewController()
+        
+        self.navigationController?.pushViewController(detailedVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (action, view, completionHandler) in
+       
+        }
+        
+        deleteAction.image = UIImage(systemName: "trash.circle.fill")
+        
+        let addToCalendarAction = UIContextualAction(style: .normal, title: nil) { (action, view, completionHandler) in
+    
+        }
+        
+        addToCalendarAction.image = UIImage(systemName: "calendar.badge.plus")
+        
+        return UISwipeActionsConfiguration(actions: [addToCalendarAction,deleteAction])
+    }
+    
 }
 extension ResultListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,14 +95,11 @@ extension ResultListViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.resultListCell.rawValue) as? ResultListTableViewCell else {return UITableViewCell()}
-//cell.layer.cornerRadius = 8
-//cell.layer.shadowOffset = CGSize(width: 0, height: 3)
-//cell.layer.shadowRadius = 3
-//cell.layer.shadowOpacity = 0.3
-//cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
-//cell.layer.shouldRasterize = true
-//cell.layer.rasterizationScale = UIScreen.main.scale
+        
+
+
         return cell
     }
     

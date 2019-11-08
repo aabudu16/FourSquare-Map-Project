@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-FourSquare-Map_Project/Pods-FourSquare-Map_Project-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Hero/Hero.framework
+${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework

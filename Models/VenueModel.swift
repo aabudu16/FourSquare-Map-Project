@@ -19,10 +19,6 @@ struct Meta: Codable {
     let code: Int?
     let requestID: String?
 
-    enum CodingKeys: String, CodingKey {
-        case code
-        case requestID = "requestId"
-    }
 }
 
 // MARK: - Response
@@ -34,36 +30,12 @@ struct Response: Codable {
 struct Venue: Codable {
     let id, name: String?
     let location: Location?
-    let categories: [Category]?
-    let delivery: Delivery?
     let referralID: Int?
     let hasPerk: Bool?
     let venuePage: VenuePage?
 
-    enum CodingKeys: String, CodingKey {
-        case id, name, location, categories, delivery
-        case referralID = "referralId"
-        case hasPerk, venuePage
-    }
 }
 
-// MARK: - Category
-struct Category: Codable {
-    let id: Int?
-    let name: String?
-    let pluralName: String?
-    let shortName: String?
-    let primary: Bool?
-}
-
-
-
-// MARK: - Delivery
-struct Delivery: Codable {
-    let id: String?
-    let url: String?
-    let provider: Provider?
-}
 
 // MARK: - Provider
 struct Provider: Codable {
@@ -77,10 +49,6 @@ struct ProviderIcon: Codable {
     let sizes: [Int]?
     let name: String?
 
-    enum CodingKeys: String, CodingKey {
-        case iconPrefix = "prefix"
-        case sizes, name
-    }
 }
 
 // MARK: - Location
