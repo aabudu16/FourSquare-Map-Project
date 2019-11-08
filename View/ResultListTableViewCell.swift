@@ -16,15 +16,15 @@ class ResultListTableViewCell: MGSwipeTableCell {
         image.image = #imageLiteral(resourceName: "imagePlaceholder")
         return image
     }()
-      
+    
     lazy var storeLabel:UILabel = {
-    let label = UILabel()
+        let label = UILabel()
         label.text = "Store name"
         return label
     }()
     
     lazy var categoryLabel:UILabel = {
-    let label = UILabel()
+        let label = UILabel()
         label.text = "Category name"
         return label
     }()
@@ -43,7 +43,7 @@ class ResultListTableViewCell: MGSwipeTableCell {
         super.awakeFromNib()
         
     }
-
+    
     private func configureImageViewConstraints(){
         self.addSubview(categoryImage)
         categoryImage.translatesAutoresizingMaskIntoConstraints = false
@@ -52,16 +52,16 @@ class ResultListTableViewCell: MGSwipeTableCell {
     }
     
     private func configureStoreLabelConstraints(){
-    self.addSubview(storeLabel)
-    storeLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(storeLabel)
+        storeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),storeLabel.leadingAnchor.constraint(equalTo: self.categoryImage.trailingAnchor, constant: 10), storeLabel.heightAnchor.constraint(equalToConstant: 30), storeLabel.widthAnchor.constraint(equalToConstant: 200)])
     }
-
+    
     private func configureCategoryLabelConstraints(){
-       self.addSubview(categoryLabel)
-       categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(categoryLabel)
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([categoryLabel.topAnchor.constraint(equalTo: storeLabel.bottomAnchor, constant: 10), categoryLabel.leadingAnchor.constraint(equalTo: self.categoryImage.trailingAnchor, constant: 10), categoryLabel.heightAnchor.constraint(equalTo: self.storeLabel.heightAnchor), categoryLabel.widthAnchor.constraint(equalTo: self.storeLabel.widthAnchor)])
-       }
+    }
 }

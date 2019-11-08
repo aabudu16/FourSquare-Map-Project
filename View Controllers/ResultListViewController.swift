@@ -15,6 +15,14 @@ enum Identifier:String{
     case resultListCell
 }
 class ResultListViewController: UIViewController {
+    
+    var userSearch = String()
+    var venues = [Venue](){
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    var venueImages = [UIImage]()
     // MARK: - Objects
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
@@ -91,15 +99,19 @@ extension ResultListViewController: UITableViewDelegate{
 }
 extension ResultListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return venues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.resultListCell.rawValue) as? ResultListTableViewCell else {return UITableViewCell()}
         
-
-
+        let venue = venues[indexPath.row]
+        let image = venueImages[indexPath.row]
+        
+        cell.categoryImage.image = image
+       cell.categoryLabel.text = userSearch
+        cell.storeLabel.text = venue.name
         return cell
     }
     

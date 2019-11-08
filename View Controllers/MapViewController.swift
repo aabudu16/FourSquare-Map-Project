@@ -22,33 +22,26 @@ class MapViewController: UIViewController {
     private var currentCoordinate: CLLocationCoordinate2D?
     let searchRadius: CLLocationDistance = 2000
     
-    var venueImageArray = [UIImage](){
+    var userSearchString:String?{
         didSet{
-            self.collectionView.reloadData()
+            collectionView.reloadData()
         }
     }
-    
-    var items = [Item](){
-        didSet{
-            self.collectionView.reloadData()
-        }
-    }
-    
+    var userDefaultValue = "catergory"
+    var items = [Item]()
     var venues = [Venue]() {
         didSet {
-            
-            let annotations = self.mapView.annotations
-            self.mapView.removeAnnotations(annotations)
-            for i in venues {
-                let newAnnotation = MKPointAnnotation()
-                newAnnotation.coordinate = CLLocationCoordinate2D(latitude: i.location?.lat ?? 40.6782, longitude: i.location?.lng ?? -73.9442)
-                newAnnotation.title = i.name
-                self.mapView.addAnnotation(newAnnotation)
-            }
-            self.collectionView.reloadData()
+            loadImageArray(venues: self.venues)
+            replaceAnnotationOnMapWithSearchResult()
         }
     }
     
+    var venueImageArray = [UIImage](){
+           didSet{
+            guard venueImageArray.count == venues.count else {return}
+            collectionView.reloadData()
+           }
+       }
     
     //MARK: UI Objects
     lazy var mapView:MKMapView = {
@@ -122,8 +115,10 @@ class MapViewController: UIViewController {
     }
     //MARK: @objc function
     @objc func handleListButtonPressed(){
-        
         let resultVC = ResultListViewController()
+        resultVC.venues = self.venues
+        resultVC.venueImages = self.venueImageArray
+        resultVC.userSearch = self.userSearchString ?? userDefaultValue
         navigationController?.pushViewController(resultVC, animated: true)
     }
     
@@ -139,6 +134,43 @@ class MapViewController: UIViewController {
                     self.venues = venue
                 }
             }
+        }
+    }
+    
+    private func loadImageArray(venues:[Venue]){
+        for venue in venues{
+            FourSquareAPIClient.shared.getVenueImages(venueID: venue.id!) { (result) in
+                switch result{
+                case .failure:
+                    self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
+                case .success(let items):
+                    for item in items{
+                        let url = URL(string: item.getUserImage())
+                        
+                        ImageHelper.shared.getImage(url: url!) { (result) in
+                            switch result{
+                            case .failure:
+                                self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
+                            case .success(let venueImage):
+                                DispatchQueue.main.async {
+                                    self.venueImageArray.append(venueImage)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func replaceAnnotationOnMapWithSearchResult(){
+        let annotations = self.mapView.annotations
+        self.mapView.removeAnnotations(annotations)
+        for i in venues {
+            let newAnnotation = MKPointAnnotation()
+            newAnnotation.coordinate = CLLocationCoordinate2D(latitude: i.location?.lat ?? 40.6782, longitude: i.location?.lng ?? -73.9442)
+            newAnnotation.title = i.name
+            self.mapView.addAnnotation(newAnnotation)
         }
     }
     
@@ -220,28 +252,12 @@ extension MapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
-         let venue = venues[indexPath.item]
         
-        FourSquareAPIClient.shared.getVenueImages(venueID: venue.id!) { (result) in
-            switch result{
-            case .failure:
-                self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
-            case .success(let items):
-                for item in items{
-                let url = URL(string: item.getUserImage())
-                    
-                    ImageHelper.shared.getImage(url: url!) { (result) in
-                        switch result{
-                        case .failure:
-                            self.venueImageArray.append(UIImage(named: "imagePlaceholder")!)
-                        case .success(let venueImage):
-                            self.venueImageArray.append(venueImage)
-                        }
-                    }
-                }
-            }
-        }
-        venueImageArray.forEach({cell.imageView.image = $0})
+        let venue = venues[indexPath.item]
+        let venueImage = venueImageArray[indexPath.item]
+        
+        cell.venueLabel.text = venue.name
+        cell.imageView.image = venueImage
         CustomLayer.shared.createCustomlayer(layer: cell.layer)
         return cell
     }
@@ -307,6 +323,7 @@ extension MapViewController: UISearchBarDelegate{
                 let coordinateRegion = MKCoordinateRegion.init(center: newAnnotation.coordinate, latitudinalMeters: self.searchRadius * 2.0, longitudinalMeters: self.searchRadius * 2.0)
                 self.mapView.setRegion(coordinateRegion, animated: true)
                 self.getMapData(lat: lat!, long: long!, query: self.querySearchBar.text!)
+                self.userSearchString = self.querySearchBar.text
             }
         }
     }
