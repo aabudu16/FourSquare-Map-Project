@@ -16,7 +16,6 @@
 		857926BF2370BA220063332D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926BE2370BA220063332D /* Secrets.swift */; };
 		857926CA2370BB800063332D /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C32370BB800063332D /* NetworkHelper.swift */; };
 		857926CB2370BB800063332D /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C42370BB800063332D /* AppError.swift */; };
-		857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C62370BB800063332D /* PersistenceHelper.swift */; };
 		857926CE2370BB800063332D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C72370BB800063332D /* ImageHelper.swift */; };
 		857926D02370BBED0063332D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926CF2370BBED0063332D /* VenueModel.swift */; };
 		857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926D12370BFAF0063332D /* FourSquareAPIClient.swift */; };
@@ -28,6 +27,9 @@
 		857926E523733AB40063332D /* CustomLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E423733AB20063332D /* CustomLayer.swift */; };
 		857926E82374A36B0063332D /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E72374A36B0063332D /* PhotoModel.swift */; };
 		857926EC237758F30063332D /* VenueCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926EB237758F20063332D /* VenueCollectionViewController.swift */; };
+		857926EE237779760063332D /* CollectionPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926ED237779760063332D /* CollectionPersistenceHelper.swift */; };
+		857926F0237779D70063332D /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926EF237779D70063332D /* CollectionModel.swift */; };
+		857926F223777C400063332D /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926F123777C3F0063332D /* PersistenceHelper.swift */; };
 		916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +60,6 @@
 		857926BE2370BA220063332D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		857926C32370BB800063332D /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		857926C42370BB800063332D /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		857926C62370BB800063332D /* PersistenceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		857926C72370BB800063332D /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		857926CF2370BBED0063332D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		857926D12370BFAF0063332D /* FourSquareAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareAPIClient.swift; sourceTree = "<group>"; };
@@ -70,6 +71,9 @@
 		857926E423733AB20063332D /* CustomLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayer.swift; sourceTree = "<group>"; };
 		857926E72374A36B0063332D /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		857926EB237758F20063332D /* VenueCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCollectionViewController.swift; sourceTree = "<group>"; };
+		857926ED237779760063332D /* CollectionPersistenceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPersistenceHelper.swift; sourceTree = "<group>"; };
+		857926EF237779D70063332D /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
+		857926F123777C3F0063332D /* PersistenceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +165,7 @@
 				857926C32370BB800063332D /* NetworkHelper.swift */,
 				857926C42370BB800063332D /* AppError.swift */,
 				857926D12370BFAF0063332D /* FourSquareAPIClient.swift */,
-				857926C62370BB800063332D /* PersistenceHelper.swift */,
+				857926ED237779760063332D /* CollectionPersistenceHelper.swift */,
 				857926C72370BB800063332D /* ImageHelper.swift */,
 			);
 			path = "Network Files";
@@ -192,6 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				857926CF2370BBED0063332D /* VenueModel.swift */,
+				857926EF237779D70063332D /* CollectionModel.swift */,
+				857926F123777C3F0063332D /* PersistenceHelper.swift */,
 				857926E72374A36B0063332D /* PhotoModel.swift */,
 			);
 			path = Models;
@@ -352,11 +358,13 @@
 				857926D82370E3DD0063332D /* CollectionsViewController.swift in Sources */,
 				857926D22370BFAF0063332D /* FourSquareAPIClient.swift in Sources */,
 				857926E323724CBA0063332D /* DetailedViewController.swift in Sources */,
+				857926F223777C400063332D /* PersistenceHelper.swift in Sources */,
 				857926CA2370BB800063332D /* NetworkHelper.swift in Sources */,
+				857926EE237779760063332D /* CollectionPersistenceHelper.swift in Sources */,
 				857926E523733AB40063332D /* CustomLayer.swift in Sources */,
-				857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */,
 				857926EC237758F30063332D /* VenueCollectionViewController.swift in Sources */,
 				857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */,
+				857926F0237779D70063332D /* CollectionModel.swift in Sources */,
 				857926A12370AF0B0063332D /* MapViewController.swift in Sources */,
 				857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */,
 				857926CB2370BB800063332D /* AppError.swift in Sources */,

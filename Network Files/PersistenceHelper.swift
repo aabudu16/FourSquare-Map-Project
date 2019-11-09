@@ -1,10 +1,4 @@
-//
-//  PersistenceHelper.swift
-//  NYTimes Project
-//
-//  Created by Jason Ruan on 10/18/19.
-//  Copyright © 2019 Just Us League. All rights reserved.
-//
+
 
 import Foundation
 
@@ -22,9 +16,16 @@ struct PersistenceHelper<T: Codable> {
         try replace(elements: elements)
     }
     
+    //MARK - Build out delete functionality
     func replace(elements: [T]) throws {
-      let serializedData = try PropertyListEncoder().encode(elements)
-      try serializedData.write(to: url, options: Data.WritingOptions.atomic)
+        let serializedData = try PropertyListEncoder().encode(elements)
+        try serializedData.write(to: url, options: Data.WritingOptions.atomic)
+    }
+    
+    func update(updatedElement: T, index: Int) throws {
+        var elements = try getObjects()
+        elements[index] = updatedElement
+        try replace(elements: elements)
     }
     
     init(fileName: String){
@@ -32,7 +33,7 @@ struct PersistenceHelper<T: Codable> {
     }
     
     private let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
+    
     private func filePathFromDocumentsDirectory(name: String) -> URL {
         return documentsDirectory.appendingPathComponent(name)
     }
