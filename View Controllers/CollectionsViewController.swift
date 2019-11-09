@@ -58,6 +58,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         tf.backgroundColor = .white
         tf.placeholder = "Enter your collection title ..."
         tf.clearsOnBeginEditing = true
+        tf.addTarget(self, action: #selector(checkTextFieldInput), for: .allEvents)
         return tf
     }()
     
@@ -87,13 +88,13 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: @objc function
     @objc func addButtonPressed(){
         self.navigationItem.setRightBarButton( self.done, animated: true)
-       
+        
         UIView.transition(with: collectionView, duration: 1.3, options: .curveEaseOut, animations: {
             self.collectionView.layoutIfNeeded()
             self.collectionView.center.y = self.view.center.y + 350
         }, completion: { (true) in
             self.topAnchor.constant = 350
-               })
+        })
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.view.backgroundColor = .black
             self.setAlphaToOne()
@@ -105,11 +106,11 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationItem.setRightBarButton( self.add, animated: true)
         
         UIView.transition(with: collectionView, duration: 0.8, options: .curveEaseInOut, animations: {
-                   self.collectionView.layoutIfNeeded()
-                   self.collectionView.center.y = self.view.center.y
-               }, completion: { (true) in
-                          self.topAnchor.constant = 0
-                             })
+            self.collectionView.layoutIfNeeded()
+            self.collectionView.center.y = self.view.center.y
+        }, completion: { (true) in
+            self.topAnchor.constant = 0
+        })
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.topAnchor.constant = 0
@@ -121,6 +122,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func clearButtonPressed(){
         if collectionTextField.hasText{
             collectionTextField.text = ""
+            clear.isEnabled = false
         }
     }
     
@@ -128,12 +130,23 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         print("create button pressed")
     }
     
+    @objc func checkTextFieldInput(){
+        if  collectionTextField.hasText == true {
+            clear.isEnabled = true
+            createButton.isEnabled = true
+        }else{
+            clear.isEnabled = false
+            createButton.isEnabled = false
+        }
+        
+    }
+    
     //MARK: Private functions
     private func configureNavigationBarButton(){
         add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
         done =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
         clear = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearButtonPressed))
-            
+        
         navigationItem.rightBarButtonItem = add
         navigationItem.leftBarButtonItem = clear
         clear.tintColor = .clear
@@ -150,7 +163,6 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         self.collectionTextField.isEnabled = true
         
         clear.tintColor = .blue
-        clear.isEnabled = true
     }
     
     private func setAlphaToZero(){
@@ -160,6 +172,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.clear.isEnabled = false
         self.collectionTextField.isEnabled = false
+        self.createButton.isEnabled = false
     }
     
     private func configureCollectionViewConstraints(){

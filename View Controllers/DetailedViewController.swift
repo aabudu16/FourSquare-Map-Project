@@ -10,6 +10,10 @@ import UIKit
 import Hero
 
 class DetailedViewController: UIViewController {
+    
+    var add:UIBarButtonItem!
+
+    
     lazy var imageView:UIImageView = {
         let image = UIImageView()
         image.image = #imageLiteral(resourceName: "imagePlaceholder")
@@ -30,10 +34,20 @@ class DetailedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureNavigationBarButton()
         configureImageViewConstraints()
         configureStoreLabelConstraints()
         configureDiscriptionLabelConstraints()
     }
+    
+    @objc func addButtonPressed(){
+           print("add button pressed")
+       }
+    
+    private func configureNavigationBarButton(){
+           add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+           navigationItem.rightBarButtonItem = add
+       }
     
     private func configureImageViewConstraints(){
         self.view.addSubview(imageView)
