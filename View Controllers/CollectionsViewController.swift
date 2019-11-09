@@ -87,9 +87,14 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: @objc function
     @objc func addButtonPressed(){
         self.navigationItem.setRightBarButton( self.done, animated: true)
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+       
+        UIView.transition(with: collectionView, duration: 1.3, options: .curveEaseOut, animations: {
             self.collectionView.layoutIfNeeded()
+            self.collectionView.center.y = self.view.center.y + 350
+        }, completion: { (true) in
             self.topAnchor.constant = 350
+               })
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.view.backgroundColor = .black
             self.setAlphaToOne()
             
@@ -98,8 +103,15 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func doneButtonPressed(){
         self.navigationItem.setRightBarButton( self.add, animated: true)
+        
+        UIView.transition(with: collectionView, duration: 0.8, options: .curveEaseInOut, animations: {
+                   self.collectionView.layoutIfNeeded()
+                   self.collectionView.center.y = self.view.center.y
+               }, completion: { (true) in
+                          self.topAnchor.constant = 0
+                             })
+        
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            self.collectionView.layoutIfNeeded()
             self.topAnchor.constant = 0
             self.view.backgroundColor = .white
             self.setAlphaToZero()
@@ -188,7 +200,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         
         addToCollectionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([addToCollectionLabel.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: -20), addToCollectionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addToCollectionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addToCollectionLabel.heightAnchor.constraint(equalToConstant: 40)])
+        NSLayoutConstraint.activate([addToCollectionLabel.topAnchor.constraint(equalTo: self.createButton.bottomAnchor, constant: 100), addToCollectionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addToCollectionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addToCollectionLabel.heightAnchor.constraint(equalToConstant: 40)])
     }
 }
 
