@@ -219,7 +219,11 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
 
 //MARK: Extensions
 extension CollectionsViewController: UICollectionViewDelegate{
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let venueCollectionVC = VenueCollectionViewController()
+        self.navigationController?.pushViewController(venueCollectionVC, animated: true)
+        
+    }
 }
 
 extension CollectionsViewController: UICollectionViewDataSource{
