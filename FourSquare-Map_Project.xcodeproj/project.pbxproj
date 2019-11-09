@@ -166,6 +166,7 @@
 				857926C42370BB800063332D /* AppError.swift */,
 				857926D12370BFAF0063332D /* FourSquareAPIClient.swift */,
 				857926ED237779760063332D /* CollectionPersistenceHelper.swift */,
+				857926F123777C3F0063332D /* PersistenceHelper.swift */,
 				857926C72370BB800063332D /* ImageHelper.swift */,
 			);
 			path = "Network Files";
@@ -197,7 +198,6 @@
 			children = (
 				857926CF2370BBED0063332D /* VenueModel.swift */,
 				857926EF237779D70063332D /* CollectionModel.swift */,
-				857926F123777C3F0063332D /* PersistenceHelper.swift */,
 				857926E72374A36B0063332D /* PhotoModel.swift */,
 			);
 			path = Models;
