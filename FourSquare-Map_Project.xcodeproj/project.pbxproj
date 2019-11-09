@@ -27,6 +27,7 @@
 		857926E323724CBA0063332D /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E223724CBA0063332D /* DetailedViewController.swift */; };
 		857926E523733AB40063332D /* CustomLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E423733AB20063332D /* CustomLayer.swift */; };
 		857926E82374A36B0063332D /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926E72374A36B0063332D /* PhotoModel.swift */; };
+		857926EC237758F30063332D /* VenueCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926EB237758F20063332D /* VenueCollectionViewController.swift */; };
 		916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		857926E223724CBA0063332D /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		857926E423733AB20063332D /* CustomLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayer.swift; sourceTree = "<group>"; };
 		857926E72374A36B0063332D /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		857926EB237758F20063332D /* VenueCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				857926A02370AF0B0063332D /* MapViewController.swift */,
 				857926D72370E3DD0063332D /* CollectionsViewController.swift */,
 				857926DC237116830063332D /* ResultListViewController.swift */,
+				857926EB237758F20063332D /* VenueCollectionViewController.swift */,
 				857926E223724CBA0063332D /* DetailedViewController.swift */,
 			);
 			path = "View Controllers";
@@ -352,6 +355,7 @@
 				857926CA2370BB800063332D /* NetworkHelper.swift in Sources */,
 				857926E523733AB40063332D /* CustomLayer.swift in Sources */,
 				857926CD2370BB800063332D /* PersistenceHelper.swift in Sources */,
+				857926EC237758F30063332D /* VenueCollectionViewController.swift in Sources */,
 				857926D62370D6620063332D /* MapCollectionViewCell.swift in Sources */,
 				857926A12370AF0B0063332D /* MapViewController.swift in Sources */,
 				857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */,
