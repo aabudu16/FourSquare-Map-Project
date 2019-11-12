@@ -16,16 +16,16 @@ class MapCollectionViewCell: UICollectionViewCell {
     
     lazy var venueLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Roboto", size: 12)
-        label.textColor = .lightGray
+        label.font = UIFont(name: "Avenir-Light", size: 20)
+        label.textColor = .gray
         label.text = "text"
         return label
     }()
     
     lazy var dateLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Roboto", size: 05)
-        label.textColor = .lightGray
+        label.font = UIFont(name: "Avenir-Light", size: 12)
+        label.textColor = .gray
         label.text = "Date"
         return label
     }()

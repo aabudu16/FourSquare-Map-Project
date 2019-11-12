@@ -33,9 +33,18 @@ struct Venue: Codable {
     let referralID: Int?
     let hasPerk: Bool?
     let venuePage: VenuePage?
+    let categories: [Category]?
 
 }
 
+// MARK: - Categories
+struct Category: Codable {
+   let id: String
+   let name: String
+   let pluralName: String
+   let shortName: String
+   let primary: Bool
+}
 
 // MARK: - Provider
 struct Provider: Codable {

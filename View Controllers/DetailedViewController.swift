@@ -26,7 +26,7 @@ class DetailedViewController: UIViewController {
         return label
     }()
     
-    lazy var discriptionLabel:UILabel = {
+    lazy var categoryLabel:UILabel = {
         let label = UILabel()
         label.text = "Store name"
         return label
@@ -37,7 +37,7 @@ class DetailedViewController: UIViewController {
         configureNavigationBarButton()
         configureImageViewConstraints()
         configureStoreLabelConstraints()
-        configureDiscriptionLabelConstraints()
+        configureCategoryLabelConstraints()
     }
     
     @objc func addButtonPressed(){
@@ -62,12 +62,13 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(storeLabel)
         storeLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant:  10), storeLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), storeLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), storeLabel.heightAnchor.constraint(equalToConstant: 50)])
         
     }
     
-    private func configureDiscriptionLabelConstraints(){
-        self.view.addSubview(discriptionLabel)
-        discriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func configureCategoryLabelConstraints(){
+        self.view.addSubview(categoryLabel)
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
     }

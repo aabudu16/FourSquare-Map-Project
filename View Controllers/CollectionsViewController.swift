@@ -99,8 +99,12 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         configureCreateCollectionTextFieldConstraints()
         configureCreateButtonConstraints()
         configureAddToCollectionLabelConstraints()
+        self.setAlphaToZeroAndDisableCreateButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.collectionView.reloadData()
-        self.setAlphaToZero()
     }
     
     //MARK: @objc function
@@ -115,7 +119,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         })
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.view.backgroundColor = .black
-            self.setAlphaToOne()
+            self.setAlphaToOneAndDisableCreateButton()
             
         }, completion: nil)
     }
@@ -133,7 +137,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.topAnchor.constant = 0
             self.view.backgroundColor = .white
-            self.setAlphaToZero()
+            self.setAlphaToZeroAndDisableCreateButton()
         }, completion: nil)
     }
     
@@ -211,7 +215,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         objectsArray = [addToCollectionLabel, createNewCollectionLabel, collectionTextField,createButton]
     }
     // set all objects alpha to one from the array
-    private func setAlphaToOne(){
+    private func setAlphaToOneAndDisableCreateButton(){
         self.objectsArray.forEach({$0.isHidden = false})
         self.objectsArray.forEach({$0.alpha = 1})
         self.collectionTextField.isEnabled = true
@@ -220,7 +224,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     // set all objects alpha to zero from the array
-    private func setAlphaToZero(){
+    private func setAlphaToZeroAndDisableCreateButton(){
         self.objectsArray.forEach({$0.isHidden = true})
         self.objectsArray.forEach({$0.alpha = 0})
         self.clear.tintColor = .clear
@@ -305,14 +309,4 @@ extension CollectionsViewController: UICollectionViewDelegateFlowLayout{
         let virticalCellCGSize = CGSize(width: 170, height: 170)
         return virticalCellCGSize
     }
-}
-
-extension CollectionsViewController: UITextFieldDelegate{
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        collectionTitle = textField.text
-        
-        return true
-    }
-   
 }
