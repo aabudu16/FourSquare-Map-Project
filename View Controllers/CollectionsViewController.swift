@@ -15,6 +15,16 @@ enum collectionIdentifiers:String{
 class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: -- Bar buttons
     
+    var collections = [CollectionModel](){
+        didSet{
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    var collectionTitle:String!
+    var currentIndex: Int?
+    
     var add:UIBarButtonItem!
     var done:UIBarButtonItem!
     var clear:UIBarButtonItem!
@@ -32,6 +42,12 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         cv.dataSource = self
         
         return cv
+    }()
+    
+    lazy var genericCollectionImage:UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "My Collection")
+        return image
     }()
     
     lazy var addToCollectionLabel:UILabel = {
@@ -66,6 +82,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         button.setTitle("Create", for: .normal)
         button.backgroundColor = .yellow
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = button.frame.height / 2
         button.addTarget(self, action: #selector(createButtonPressed), for: .touchUpInside)
         return button
@@ -82,6 +99,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         configureCreateCollectionTextFieldConstraints()
         configureCreateButtonConstraints()
         configureAddToCollectionLabelConstraints()
+        self.collectionView.reloadData()
         self.setAlphaToZero()
     }
     
@@ -127,7 +145,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func createButtonPressed(){
-        print("create button pressed")
+        self.saveUserInput()
     }
     
     @objc func checkTextFieldInput(){
@@ -138,10 +156,45 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
             clear.isEnabled = false
             createButton.isEnabled = false
         }
-        
     }
     
     //MARK: Private functions
+    private func currentDate()->String{
+        let formattedDate = "MMM/dd/yyyy HH:mm:ss"
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = formattedDate
+        return formatter.string(from: date)
+    }
+    
+    // save persisted data
+    private func saveUserInput(){
+        guard let imageData = genericCollectionImage.image?.jpegData(compressionQuality: 0.7) else {return}
+        guard let collectionName = collectionTextField.text else {return}
+        
+        let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData)
+        try? CollectionPersistenceHelper.manager.save(entry: newCollection)
+        
+        showAlert(with: "Success", and: "Created a new collection ")
+    }
+  
+    private func loadUserInput(){
+        do{
+            collections = try CollectionPersistenceHelper.manager.getEntries()
+        }catch{
+            print(error)
+        }
+    }
+    
+    private func showAlert(with title: String, and message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "ok", style: .cancel) { (loadCollection) in
+            self.loadUserInput()
+        }
+        alertVC.addAction(ok)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
     private func configureNavigationBarButton(){
         add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
         done =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
@@ -157,6 +210,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     private func addObjectsToAnArray(){
         objectsArray = [addToCollectionLabel, createNewCollectionLabel, collectionTextField,createButton]
     }
+    // set all objects alpha to one from the array
     private func setAlphaToOne(){
         self.objectsArray.forEach({$0.isHidden = false})
         self.objectsArray.forEach({$0.alpha = 1})
@@ -165,6 +219,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         clear.tintColor = .blue
     }
     
+    // set all objects alpha to zero from the array
     private func setAlphaToZero(){
         self.objectsArray.forEach({$0.isHidden = true})
         self.objectsArray.forEach({$0.alpha = 0})
@@ -228,14 +283,18 @@ extension CollectionsViewController: UICollectionViewDelegate{
 
 extension CollectionsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return collections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionIdentifiers.collectionCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
+        let info = collections[indexPath.item]
         
-        cell.imageView.image = UIImage(named: "imagePlaceholder")
+    
         
+        cell.imageView.image = UIImage(data: info.venueImage)
+        cell.dateLabel.text = info.date
+        cell.venueLabel.text = info.collectionName
         return cell
     }
 }
@@ -246,4 +305,14 @@ extension CollectionsViewController: UICollectionViewDelegateFlowLayout{
         let virticalCellCGSize = CGSize(width: 170, height: 170)
         return virticalCellCGSize
     }
+}
+
+extension CollectionsViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        collectionTitle = textField.text
+        
+        return true
+    }
+   
 }

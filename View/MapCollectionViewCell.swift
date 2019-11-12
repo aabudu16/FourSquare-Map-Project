@@ -16,16 +16,24 @@ class MapCollectionViewCell: UICollectionViewCell {
     
     lazy var venueLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Roboto", size: 10)
+        label.font = UIFont(name: "Roboto", size: 12)
         label.textColor = .lightGray
         label.text = "text"
-        
+        return label
+    }()
+    
+    lazy var dateLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Roboto", size: 05)
+        label.textColor = .lightGray
+        label.text = "Date"
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureImageViewConstraints()
+        configureDateLabelConstraints()
         configureVenueLabelConstraints()
         
     }
@@ -37,13 +45,20 @@ class MapCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: self.topAnchor), imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor), imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor), imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)])
     }
     
+    private func configureDateLabelConstraints(){
+        addSubview(dateLabel)
+        
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([dateLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor), dateLabel.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor), dateLabel.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor), dateLabel.heightAnchor.constraint(equalToConstant: 20)])
+    }
     
     private func configureVenueLabelConstraints(){
         addSubview(venueLabel)
         
         venueLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([venueLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor), venueLabel.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor), venueLabel.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor), venueLabel.heightAnchor.constraint(equalToConstant: 20)])
+        NSLayoutConstraint.activate([venueLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor), venueLabel.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor), venueLabel.bottomAnchor.constraint(equalTo: self.dateLabel.topAnchor,constant: 5), venueLabel.heightAnchor.constraint(equalToConstant: 20)])
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

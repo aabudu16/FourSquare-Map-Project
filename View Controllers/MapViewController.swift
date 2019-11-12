@@ -100,6 +100,14 @@ class MapViewController: UIViewController {
         return button
     }()
     
+    let activityIndcator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView()
+        av.style = .large
+        av.hidesWhenStopped = true
+        av.startAnimating()
+        return av
+    }()
+    
     //MARK: lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -289,11 +297,9 @@ extension MapViewController: UISearchBarDelegate{
         
         
         //Activity indicator
-        let activityIndcator = UIActivityIndicatorView()
-        activityIndcator.style = .large
+       
         activityIndcator.center = self.view.center
-        activityIndcator.hidesWhenStopped = true
-        activityIndcator.startAnimating()
+        activityIndcator.center = self.view.center
         
         self.view.addSubview(activityIndcator)
         
@@ -309,7 +315,7 @@ extension MapViewController: UISearchBarDelegate{
             }else {
                 
                 // dismiss activity indicator
-                activityIndcator.stopAnimating()
+                self.activityIndcator.stopAnimating()
                 
                 // remove current anotations
                 let annotations = self.mapView.annotations

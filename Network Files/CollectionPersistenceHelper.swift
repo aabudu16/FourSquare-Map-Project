@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct EntryPersistenceHelper {
-    static let manager = EntryPersistenceHelper()
+struct CollectionPersistenceHelper {
+    static let manager = CollectionPersistenceHelper()
     
     func save(entry: CollectionModel) throws {
         try persistenceHelper.save(newElement: entry)
