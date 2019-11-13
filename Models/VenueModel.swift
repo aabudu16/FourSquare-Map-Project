@@ -34,7 +34,24 @@ struct Venue: Codable {
     let hasPerk: Bool?
     let venuePage: VenuePage?
     let categories: [Category]?
-
+    let hasNoCategory = "This venue has no category"
+    
+    func returnCategory()->String{
+        return categories?.first?.name ?? hasNoCategory
+    }
+    
+    func returnFullAddress()->String{
+        let address = location?.address ?? "No Address"
+        let city = location?.city ?? "No City"
+        let state = location?.state ?? "No State"
+        let country = location?.country ?? "No Country"
+        return """
+           \(address)
+        City: \(city)
+        State: \(state)
+        Country: \(country)
+        """
+    }
 }
 
 // MARK: - Categories
