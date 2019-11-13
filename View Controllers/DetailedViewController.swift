@@ -14,11 +14,12 @@ class DetailedViewController: UIViewController {
     var venue:Venue!{
         didSet{
             storeLabel.text = venue.name
-            categoryLabel.text = venue.id
+            categoryLabel.text = venue.returnCategory()
+            addressTextView.text = venue.returnFullAddress()
         }
     }
     var add:UIBarButtonItem!
-
+    
     lazy var imageView:UIImageView = {
         let image = UIImageView()
         image.image = #imageLiteral(resourceName: "imagePlaceholder")
@@ -27,15 +28,24 @@ class DetailedViewController: UIViewController {
     
     lazy var storeLabel:UILabel = {
         let label = UILabel()
-        label.text = "Store name"
+        label.font = UIFont(name: "Avenir-Light", size: 20)
         return label
     }()
     
     lazy var categoryLabel:UILabel = {
         let label = UILabel()
-        label.text = "Store name"
+        label.font = UIFont(name: "Avenir-Light", size: 20)
         return label
     }()
+    
+    lazy var addressTextView:UITextView = {
+        let tv = UITextView()
+        tv.backgroundColor = .clear
+        tv.contentMode = .center
+        tv.font = UIFont(name: "Avenir-Light", size: 20)
+        return tv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
