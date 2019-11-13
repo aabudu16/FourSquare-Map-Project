@@ -31,8 +31,8 @@ class MapViewController: UIViewController {
     var items = [Item]()
     var venues = [Venue]() {
         didSet {
-            loadImageArray(venues: self.venues)
             replaceAnnotationOnMapWithSearchResult()
+            loadImageArray(venues: self.venues)
         }
     }
     
@@ -267,7 +267,7 @@ extension MapViewController: UICollectionViewDataSource{
         
         let venue = venues[indexPath.item]
         let venueImage = venueImageArray[indexPath.item]
-        
+        cell.dateLabel.isHidden = true
         cell.venueLabel.text = venue.name
         cell.imageView.image = venueImage
         CustomLayer.shared.createCustomlayer(layer: cell.layer)
@@ -283,6 +283,7 @@ extension MapViewController: UICollectionViewDelegateFlowLayout{
         return virticalCellCGSize
     }
 }
+
 extension MapViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         querySearchBar.showsCancelButton = true

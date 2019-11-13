@@ -104,7 +104,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
+        collections = try! CollectionPersistenceHelper.manager.getEntries()
     }
     
     //MARK: @objc function

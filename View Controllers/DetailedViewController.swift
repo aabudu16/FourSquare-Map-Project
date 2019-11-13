@@ -11,9 +11,14 @@ import Hero
 
 class DetailedViewController: UIViewController {
     
+    var venue:Venue!{
+        didSet{
+            storeLabel.text = venue.name
+            categoryLabel.text = venue.id
+        }
+    }
     var add:UIBarButtonItem!
 
-    
     lazy var imageView:UIImageView = {
         let image = UIImageView()
         image.image = #imageLiteral(resourceName: "imagePlaceholder")
@@ -53,7 +58,7 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor), imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor)])
+        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor), imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20), imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -20), imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, constant:  -20)])
         
         
     }
@@ -62,7 +67,7 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(storeLabel)
         storeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant:  10), storeLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), storeLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), storeLabel.heightAnchor.constraint(equalToConstant: 50)])
+        NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant:  10), storeLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10), storeLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), storeLabel.heightAnchor.constraint(equalToConstant: 50)])
         
     }
     
@@ -70,6 +75,6 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(categoryLabel)
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
+        NSLayoutConstraint.activate([categoryLabel.topAnchor.constraint(equalTo: storeLabel.bottomAnchor, constant:  10), categoryLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 10), categoryLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), categoryLabel.heightAnchor.constraint(equalToConstant: 50)])
     }
 }

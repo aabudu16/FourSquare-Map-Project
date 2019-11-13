@@ -75,7 +75,9 @@ extension ResultListViewController: UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailedVC = DetailedViewController()
+        let info = venues[indexPath.row]
         
+        detailedVC.venue = info
         self.navigationController?.pushViewController(detailedVC, animated: true)
     }
     
