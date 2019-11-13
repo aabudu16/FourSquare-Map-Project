@@ -53,16 +53,17 @@ class DetailedViewController: UIViewController {
         configureImageViewConstraints()
         configureStoreLabelConstraints()
         configureCategoryLabelConstraints()
+        configureAddressTextViewConstraints()
     }
     
     @objc func addButtonPressed(){
-           print("add button pressed")
-       }
+        print("add button pressed")
+    }
     
     private func configureNavigationBarButton(){
-           add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
-           navigationItem.rightBarButtonItem = add
-       }
+        add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        navigationItem.rightBarButtonItem = add
+    }
     
     private func configureImageViewConstraints(){
         self.view.addSubview(imageView)
@@ -86,5 +87,12 @@ class DetailedViewController: UIViewController {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([categoryLabel.topAnchor.constraint(equalTo: storeLabel.bottomAnchor, constant:  10), categoryLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 10), categoryLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), categoryLabel.heightAnchor.constraint(equalToConstant: 50)])
+    }
+    
+    private func configureAddressTextViewConstraints(){
+        self.view.addSubview(addressTextView)
+        addressTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([addressTextView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor), addressTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 10), addressTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addressTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
     }
 }
