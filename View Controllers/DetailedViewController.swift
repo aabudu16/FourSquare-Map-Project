@@ -28,12 +28,14 @@ class DetailedViewController: UIViewController {
     
     lazy var storeLabel:UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.font = UIFont(name: "Avenir-Light", size: 20)
         return label
     }()
     
     lazy var categoryLabel:UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.font = UIFont(name: "Avenir-Light", size: 20)
         return label
     }()
@@ -41,7 +43,7 @@ class DetailedViewController: UIViewController {
     lazy var addressTextView:UITextView = {
         let tv = UITextView()
         tv.backgroundColor = .clear
-        tv.contentMode = .center
+        tv.textAlignment = .center
         tv.font = UIFont(name: "Avenir-Light", size: 20)
         return tv
     }()
@@ -93,6 +95,6 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(addressTextView)
         addressTextView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([addressTextView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor), addressTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 10), addressTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addressTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
+        NSLayoutConstraint.activate([addressTextView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20), addressTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addressTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addressTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
     }
 }

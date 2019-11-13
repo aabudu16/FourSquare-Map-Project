@@ -46,7 +46,7 @@ struct Venue: Codable {
         let state = location?.state ?? "No State"
         let country = location?.country ?? "No Country"
         return """
-           \(address)
+        \(address)
         City: \(city)
         State: \(state)
         Country: \(country)

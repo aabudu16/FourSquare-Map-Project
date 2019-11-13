@@ -162,8 +162,8 @@
 		857926C02370BB800063332D /* Network Files */ = {
 			isa = PBXGroup;
 			children = (
-				857926C32370BB800063332D /* NetworkHelper.swift */,
 				857926C42370BB800063332D /* AppError.swift */,
+				857926C32370BB800063332D /* NetworkHelper.swift */,
 				857926D12370BFAF0063332D /* FourSquareAPIClient.swift */,
 				857926ED237779760063332D /* CollectionPersistenceHelper.swift */,
 				857926F123777C3F0063332D /* PersistenceHelper.swift */,

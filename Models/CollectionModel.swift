@@ -12,4 +12,8 @@ struct CollectionModel:Codable{
     let collectionName:String
     let date:String
     let venueImage:Data
+    let venue:[Venue]?
+    
 }
+
+

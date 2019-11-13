@@ -13,6 +13,13 @@ enum VenueIdentifier:String{
 }
 class VenueCollectionViewController: UIViewController {
     
+    var venueImages = [UIImage]()
+    
+    var venues = [CollectionModel](){
+        didSet{
+            self.venueTableView.reloadData()
+        }
+    }
     
     lazy var venueTableView: UITableView = {
         let tableView: UITableView = UITableView()
@@ -60,17 +67,19 @@ extension VenueCollectionViewController: UITableViewDelegate{
 
 extension VenueCollectionViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return venues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VenueIdentifier.venueListCell.rawValue) as? ResultListTableViewCell else {return UITableViewCell()}
         
+        let venue = venues[indexPath.row]
+        let image = venueImages[indexPath.row]
         
-        cell.categoryImage.image = #imageLiteral(resourceName: "imagePlaceholder")
-        cell.categoryLabel.text = "userSearch"
-        cell.storeLabel.text = "venue.name"
+        cell.categoryImage.image = image
+        cell.categoryLabel.text = venue.venue?.first?.categories?.first?.name
+        cell.storeLabel.text = venue.venue?.first?.name
         return cell
     }
     

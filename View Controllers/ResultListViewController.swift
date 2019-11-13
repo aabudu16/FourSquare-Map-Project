@@ -112,7 +112,7 @@ extension ResultListViewController: UITableViewDataSource{
         let image = venueImages[indexPath.row]
         
         cell.categoryImage.image = image
-       cell.categoryLabel.text = userSearch
+        cell.categoryLabel.text = venue.returnCategory()
         cell.storeLabel.text = venue.name
         return cell
     }

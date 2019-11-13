@@ -37,15 +37,16 @@ class MapViewController: UIViewController {
     }
     
     var venueImageArray = [UIImage](){
-           didSet{
+        didSet{
             guard venueImageArray.count == venues.count else {return}
             collectionView.reloadData()
-           }
-       }
+        }
+    }
     
     //MARK: UI Objects
     lazy var mapView:MKMapView = {
         let map = MKMapView()
+        map.delegate = self
         map.userTrackingMode = .followWithHeading
         return map
     }()
@@ -178,6 +179,7 @@ class MapViewController: UIViewController {
             let newAnnotation = MKPointAnnotation()
             newAnnotation.coordinate = CLLocationCoordinate2D(latitude: i.location?.lat ?? 40.6782, longitude: i.location?.lng ?? -73.9442)
             newAnnotation.title = i.name
+            newAnnotation.subtitle = i.id
             self.mapView.addAnnotation(newAnnotation)
         }
     }
@@ -254,9 +256,17 @@ class MapViewController: UIViewController {
 //MARK: Extensions
 extension MapViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        //move map to view the selected venues annotation
+        let item = venues[indexPath.item]
+        let currentAnnotation = mapView.annotations.filter({$0.subtitle == item.id})
+        
+        let region = MKCoordinateRegion(center: currentAnnotation.first!.coordinate, latitudinalMeters: 0, longitudinalMeters: 0)
+        mapView.showAnnotations(currentAnnotation, animated: true)
+        mapView.setRegion(region, animated: true)
     }
 }
+
+
 extension MapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return venues.count
@@ -298,7 +308,7 @@ extension MapViewController: UISearchBarDelegate{
         
         
         //Activity indicator
-       
+        
         activityIndcator.center = self.view.center
         activityIndcator.center = self.view.center
         
@@ -354,5 +364,11 @@ extension MapViewController: CLLocationManagerDelegate{
         if status == .authorizedAlways || status == .authorizedWhenInUse{
             beginLocationUpdates(locationManager: locationManger)
         }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate{
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print( view.annotation?.title)
     }
 }

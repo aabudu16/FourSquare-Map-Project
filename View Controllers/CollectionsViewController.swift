@@ -176,7 +176,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let imageData = genericCollectionImage.image?.jpegData(compressionQuality: 0.7) else {return}
         guard let collectionName = collectionTextField.text else {return}
         
-        let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData)
+        let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData, venue: nil)
         try? CollectionPersistenceHelper.manager.save(entry: newCollection)
         
         showAlert(with: "Success", and: "Created a new collection ")
@@ -280,6 +280,8 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
 extension CollectionsViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let venueCollectionVC = VenueCollectionViewController()
+        let info = collections[indexPath.item]
+
         self.navigationController?.pushViewController(venueCollectionVC, animated: true)
         
     }
