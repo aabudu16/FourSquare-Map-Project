@@ -33,7 +33,7 @@ class AddVenueCollectionViewCell: UICollectionViewCell {
     
     lazy var addToCollectionButton:UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "addToFolder"), for: .normal)
+        button.setImage(UIImage(named: "saveToFolder"), for: .normal)
         return button
     }()
     
@@ -71,7 +71,7 @@ class AddVenueCollectionViewCell: UICollectionViewCell {
         addSubview(addToCollectionButton)
         addToCollectionButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([addToCollectionButton.leadingAnchor.constraint(equalTo: self.leadingAnchor), addToCollectionButton.trailingAnchor.constraint(equalTo: self.trailingAnchor), addToCollectionButton.bottomAnchor.constraint(equalTo: self.bottomAnchor), addToCollectionButton.topAnchor.constraint(equalTo: self.topAnchor)])
+        NSLayoutConstraint.activate([addToCollectionButton.centerYAnchor.constraint(equalTo: self.centerYAnchor), addToCollectionButton.centerXAnchor.constraint(equalTo: self.centerXAnchor), addToCollectionButton.widthAnchor.constraint(equalToConstant: 50), addToCollectionButton.heightAnchor.constraint(equalToConstant: 50)])
     }
        required init?(coder: NSCoder) {
            fatalError("init(coder:) has not been implemented")

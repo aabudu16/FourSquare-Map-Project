@@ -59,7 +59,8 @@ class DetailedViewController: UIViewController {
     }
     
     @objc func addButtonPressed(){
-        print("add button pressed")
+      let addToCollectionVC = AddVenueToCollectionViewController()
+        present(addToCollectionVC, animated: true, completion: nil)
     }
     
     private func configureNavigationBarButton(){
