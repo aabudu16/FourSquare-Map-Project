@@ -21,7 +21,7 @@ class MapViewController: UIViewController {
     private let locationManger = CLLocationManager()
     private var currentCoordinate: CLLocationCoordinate2D?
     let searchRadius: CLLocationDistance = 2000
-    
+    var myIndex:Int!
     var userSearchString:String?{
         didSet{
             collectionView.reloadData()
@@ -275,6 +275,8 @@ extension MapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
         
+        myIndex = indexPath.row
+        
         let venue = venues[indexPath.item]
         let venueImage = venueImageArray[indexPath.item]
         cell.dateLabel.isHidden = true
@@ -369,6 +371,9 @@ extension MapViewController: CLLocationManagerDelegate{
 
 extension MapViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print( view.annotation?.title)
+        let venueDetailedVC = DetailedViewController()
+        let info = venues[myIndex]
+        venueDetailedVC.venue = info
+        navigationController?.pushViewController(venueDetailedVC, animated: true)
     }
 }
