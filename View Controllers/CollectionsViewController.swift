@@ -208,7 +208,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.leftBarButtonItem = clear
         clear.tintColor = .clear
         clear.isEnabled = false
-        done.tintColor = .red
+        done.tintColor = .blue
     }
     
     private func addObjectsToAnArray(){
@@ -220,7 +220,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         self.objectsArray.forEach({$0.alpha = 1})
         self.collectionTextField.isEnabled = true
         
-        clear.tintColor = .blue
+        clear.tintColor = .red
     }
     
     // set all objects alpha to zero from the array

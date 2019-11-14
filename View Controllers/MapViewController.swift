@@ -257,9 +257,9 @@ class MapViewController: UIViewController {
 extension MapViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //move map to view the selected venues annotation
+         myIndex = indexPath.row
         let item = venues[indexPath.item]
         let currentAnnotation = mapView.annotations.filter({$0.subtitle == item.id})
-        
         let region = MKCoordinateRegion(center: currentAnnotation.first!.coordinate, latitudinalMeters: 0, longitudinalMeters: 0)
         mapView.showAnnotations(currentAnnotation, animated: true)
         mapView.setRegion(region, animated: true)
@@ -274,8 +274,6 @@ extension MapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.mapCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
-        
-        myIndex = indexPath.row
         
         let venue = venues[indexPath.item]
         let venueImage = venueImageArray[indexPath.item]
