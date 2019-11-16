@@ -104,8 +104,10 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collections = try! CollectionPersistenceHelper.manager.getEntries()
+        loadPersistedData()
     }
+    
+    
     
     //MARK: @objc function
     @objc func addButtonPressed(){
@@ -163,6 +165,14 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     //MARK: Private functions
+    
+    private func loadPersistedData(){
+        guard let loadCollection = try? CollectionPersistenceHelper.manager.getEntries()  else {return}
+        if loadCollection.count > 0 {
+            collections = loadCollection
+        }
+    }
+    
     private func currentDate()->String{
         let formattedDate = "MMM/dd/yyyy HH:mm:ss"
         let date = Date()
@@ -176,10 +186,10 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let imageData = genericCollectionImage.image?.jpegData(compressionQuality: 0.7) else {return}
         guard let collectionName = collectionTextField.text else {return}
         
-        let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData, venue: nil)
+        let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData, savedVenue:[])
         try? CollectionPersistenceHelper.manager.save(entry: newCollection)
         
-        showAlert(with: "Success", and: "Created a new collection ")
+        showAlertToLoadCollection(with: "Success", and: "Created a new collection ")
     }
   
     private func loadUserInput(){
@@ -190,7 +200,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func showAlert(with title: String, and message: String) {
+    private func showAlertToLoadCollection(with title: String, and message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "ok", style: .cancel) { (loadCollection) in
             self.loadUserInput()
@@ -281,7 +291,9 @@ extension CollectionsViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let venueCollectionVC = VenueCollectionViewController()
         let info = collections[indexPath.item]
-
+        
+        
+        venueCollectionVC.venues = info.savedVenue
         self.navigationController?.pushViewController(venueCollectionVC, animated: true)
         
     }

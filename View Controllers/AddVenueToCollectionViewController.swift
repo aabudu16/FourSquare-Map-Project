@@ -12,8 +12,10 @@ enum AddCollectionIdentifier:String{
     case addToCollectionCell
 }
 class AddVenueToCollectionViewController: UIViewController {
-
-     
+    
+    var favorite = [Venue]()
+    var favoriteVenueImage = [UIImage]()
+    
         var collections = [CollectionModel](){
             didSet{
                 DispatchQueue.main.async {
@@ -103,7 +105,7 @@ class AddVenueToCollectionViewController: UIViewController {
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            UINavigationController(rootViewController: AddVenueToCollectionViewController())
+            
             collections = try! CollectionPersistenceHelper.manager.getEntries()
             
         }
@@ -177,7 +179,7 @@ class AddVenueToCollectionViewController: UIViewController {
             guard let imageData = genericCollectionImage.image?.jpegData(compressionQuality: 0.7) else {return}
             guard let collectionName = collectionTextField.text else {return}
             
-            let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData, venue: nil)
+            let newCollection = CollectionModel(collectionName: collectionName, date: self.currentDate(), venueImage: imageData, savedVenue: [])
             try? CollectionPersistenceHelper.manager.save(entry: newCollection)
             
             showAlert(with: "Success", and: "Created a new collection ")
@@ -280,11 +282,30 @@ class AddVenueToCollectionViewController: UIViewController {
     //MARK: Extensions
     extension AddVenueToCollectionViewController: UICollectionViewDelegate{
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            let venueCollectionVC = VenueCollectionViewController()
-            let info = collections[indexPath.item]
-
-            self.navigationController?.pushViewController(venueCollectionVC, animated: true)
+//            print(favorite.first?.name)
+//            print(favoriteVenueImage.first)
+           let selectedCollection = collections[indexPath.item]
+            guard let imageData = favoriteVenueImage.first?.jpegData(compressionQuality: 0.7) else {return}
             
+            
+            let alert = UIAlertController(title: nil, message: "Are you sure you want to add to this collection", preferredStyle: .actionSheet)
+            let yes = UIAlertAction(title: "Yes", style: .default) { (true) in
+    
+                  let fav = CollectionModel(collectionName: selectedCollection.collectionName, date: self.currentDate(), venueImage: imageData, savedVenue: self.favorite)
+               
+                do{
+                    try CollectionPersistenceHelper.manager.save(entry: fav)
+                }catch{
+                    print(error)
+                }
+                
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+            
+            alert.addAction(yes)
+            alert.addAction(cancel)
+            
+            present(alert, animated: true, completion: nil)
         }
     }
 

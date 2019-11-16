@@ -15,7 +15,7 @@ class VenueCollectionViewController: UIViewController {
     
     var venueImages = [UIImage]()
     
-    var venues = [CollectionModel](){
+    var venues = [Venue](){
         didSet{
             self.venueTableView.reloadData()
         }
@@ -63,6 +63,13 @@ extension VenueCollectionViewController: UITableViewDelegate{
         cell.layer.mask = maskLayer
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let venueDetailedVC = DetailedViewController()
+        let info = venues[indexPath.item]
+        venueDetailedVC.venue = info
+        navigationController?.pushViewController(venueDetailedVC, animated: true)
+    }
 }
 
 extension VenueCollectionViewController: UITableViewDataSource{
@@ -75,11 +82,11 @@ extension VenueCollectionViewController: UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VenueIdentifier.venueListCell.rawValue) as? ResultListTableViewCell else {return UITableViewCell()}
         
         let venue = venues[indexPath.row]
-        let image = venueImages[indexPath.row]
+        // let image = venueImages[indexPath.row]
         
-        cell.categoryImage.image = image
-        cell.categoryLabel.text = venue.venue?.first?.categories?.first?.name
-        cell.storeLabel.text = venue.venue?.first?.name
+        // cell.categoryImage.image = image
+        cell.categoryLabel.text = ""
+        cell.storeLabel.text = venue.name
         return cell
     }
     

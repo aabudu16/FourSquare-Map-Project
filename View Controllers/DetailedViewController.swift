@@ -8,6 +8,8 @@
 
 import UIKit
 import Hero
+import CoreLocation
+import MapKit
 
 class DetailedViewController: UIViewController {
     
@@ -45,9 +47,26 @@ class DetailedViewController: UIViewController {
         tv.backgroundColor = .clear
         tv.textAlignment = .center
         tv.font = UIFont(name: "Avenir-Light", size: 20)
+        tv.addGestureRecognizer(self.getDirectionsTapGesture)
         return tv
     }()
     
+    lazy var getDirectionsTapGesture: UITapGestureRecognizer = {
+        let guesture = UITapGestureRecognizer()
+        guesture.addTarget(self, action: #selector(getDirections))
+        return guesture
+    }()
+    
+    lazy var getDirectionButton:UIButton = {
+    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        button.setTitle("Get Directions", for: .normal)
+        button.layer.cornerRadius = button.frame.height / 2
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+        return button
+    }()
+    
+     //MARK: -- lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -55,19 +74,40 @@ class DetailedViewController: UIViewController {
         configureImageViewConstraints()
         configureStoreLabelConstraints()
         configureCategoryLabelConstraints()
+        configureGetDrectionButtonConstraints()
         configureAddressTextViewConstraints()
+        
     }
     
+    
+    //MARK: -- @objc function
     @objc func addButtonPressed(){
-      let addToCollectionVC = AddVenueToCollectionViewController()
-        present(addToCollectionVC, animated: true, completion: nil)
+        let addToCollectionVC = AddVenueToCollectionViewController()
+        addToCollectionVC.favorite += [venue]
+        addToCollectionVC.favoriteVenueImage = [(imageView.image ?? UIImage(named: "imagePlaceholder")!)]
+        // print(imageView.image)
+        present(UINavigationController(rootViewController: addToCollectionVC), animated: true, completion: nil)
     }
     
+    @objc private func getDirections() {
+        guard let lat = venue.location?.lat, let long = venue.location?.lng else {return}
+        
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = venue.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        
+    }
+    
+    //MARK: -- Private function
     private func configureNavigationBarButton(){
-        add =  UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        add = UIBarButtonItem(title: "Add to favorite", style: .plain, target: self, action: #selector(addButtonPressed))
         navigationItem.rightBarButtonItem = add
     }
     
+    
+     //MARK: -- private constrainst function
     private func configureImageViewConstraints(){
         self.view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +136,13 @@ class DetailedViewController: UIViewController {
         self.view.addSubview(addressTextView)
         addressTextView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([addressTextView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20), addressTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addressTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addressTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
+        NSLayoutConstraint.activate([addressTextView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20), addressTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addressTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addressTextView.bottomAnchor.constraint(equalTo: getDirectionButton.topAnchor) ])
+    }
+    
+    private func configureGetDrectionButtonConstraints(){
+        self.view.addSubview(getDirectionButton)
+               getDirectionButton.translatesAutoresizingMaskIntoConstraints = false
+               
+        NSLayoutConstraint.activate([getDirectionButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -5), getDirectionButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 50), getDirectionButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50),getDirectionButton.heightAnchor.constraint(equalToConstant: 50)])
     }
 }

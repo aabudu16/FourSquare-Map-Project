@@ -12,8 +12,11 @@ struct CollectionModel:Codable{
     let collectionName:String
     let date:String
     let venueImage:Data
-    let venue:[Venue]?
+    var savedVenue:[Venue]
     
+    mutating func addSavedVenue(venue:Venue) {
+        self.savedVenue.append(venue)
+        
+    }
 }
-
 

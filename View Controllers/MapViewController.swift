@@ -14,6 +14,7 @@ import Hero
 //MARK: Enum
 enum Identifiers:String{
     case mapCell
+    case annotationView
 }
 
 class MapViewController: UIViewController {
@@ -370,8 +371,22 @@ extension MapViewController: CLLocationManagerDelegate{
 extension MapViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let venueDetailedVC = DetailedViewController()
+        guard myIndex != nil else {return}
         let info = venues[myIndex]
         venueDetailedVC.venue = info
         navigationController?.pushViewController(venueDetailedVC, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifiers.annotationView.rawValue)
+        
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Identifiers.annotationView.rawValue)
+            annotationView?.canShowCallout = true
+            annotationView?.image = UIImage(named: "pin")
+        }else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
     }
 }
