@@ -121,6 +121,8 @@ class MapViewController: UIViewController {
         configureListButtonConstraints()
         configureCollectionViewConstraints()
         configureLocationService()
+        presentGuideMessage()
+        
         
     }
     //MARK: @objc function
@@ -133,6 +135,23 @@ class MapViewController: UIViewController {
     }
     
     //MARK: private functions
+    
+    
+    private func presentGuideMessage(){
+        showGenericAlert(with: "Welcome", and: """
+ . Use the search bar to search for  location,
+ . then click on the venue image to zoom in to the venue on the map
+ . from there you can click on the map pin annotation to navigate to the detailed page that will relay more information about that venue.
+
+ """)
+    }
+    private func showGenericAlert(with title: String, and message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "ok", style: .cancel)
+        alertVC.addAction(ok)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
     
     private func getMapData(lat:Double, long:Double, query:String){
         FourSquareAPIClient.shared.getData(lat: lat, long: long, query: query) { (result) in
