@@ -54,6 +54,7 @@ struct Venue: Codable {
     }
 }
 
+
 // MARK: - Categories
 struct Category: Codable {
    let id: String
@@ -105,4 +106,19 @@ struct LabeledLatLng: Codable {
 // MARK: - VenuePage
 struct VenuePage: Codable {
     let id: String?
+}
+
+struct Foursquare: Codable {
+    let meta: Meta
+    let response: Response?
+    
+    static func getTestData(from data:Data) -> [Venue]? {
+        do {
+            let newMap = try JSONDecoder().decode(Foursquare.self, from: data)
+            return newMap.response?.venues
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
 }
