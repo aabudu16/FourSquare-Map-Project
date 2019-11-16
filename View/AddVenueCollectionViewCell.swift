@@ -18,7 +18,8 @@ class AddVenueCollectionViewCell: UICollectionViewCell {
            let label = UILabel()
            label.font = UIFont(name: "Avenir-Light", size: 20)
            label.textColor = .gray
-           label.text = "text"
+           label.numberOfLines = 0
+           label.lineBreakMode = .byWordWrapping
            return label
        }()
        
@@ -26,7 +27,8 @@ class AddVenueCollectionViewCell: UICollectionViewCell {
            let label = UILabel()
            label.font = UIFont(name: "Avenir-Light", size: 12)
            label.textColor = .gray
-           label.text = "Date"
+           label.numberOfLines = 0
+           label.lineBreakMode = .byWordWrapping
            return label
        }()
        

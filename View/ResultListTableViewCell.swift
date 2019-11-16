@@ -19,13 +19,15 @@ class ResultListTableViewCell: MGSwipeTableCell {
     
     lazy var storeLabel:UILabel = {
         let label = UILabel()
-        label.text = "Store name"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
     lazy var categoryLabel:UILabel = {
         let label = UILabel()
-        label.text = "Category name"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -55,7 +57,7 @@ class ResultListTableViewCell: MGSwipeTableCell {
         self.addSubview(storeLabel)
         storeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),storeLabel.leadingAnchor.constraint(equalTo: self.categoryImage.trailingAnchor, constant: 10), storeLabel.heightAnchor.constraint(equalToConstant: 30), storeLabel.widthAnchor.constraint(equalToConstant: 200)])
+        NSLayoutConstraint.activate([storeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),storeLabel.leadingAnchor.constraint(equalTo: self.categoryImage.trailingAnchor, constant: 10), storeLabel.heightAnchor.constraint(equalToConstant: 60), storeLabel.widthAnchor.constraint(equalToConstant: 200)])
     }
     
     private func configureCategoryLabelConstraints(){

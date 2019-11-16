@@ -306,9 +306,9 @@ extension CollectionsViewController: UICollectionViewDelegate{
 extension CollectionsViewController: UICollectionViewDataSource,CollectionViewCellDelegate{
     
     func actionSheet(tag: Int) {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: nil, message: "Are you sure you want to delete", preferredStyle: .actionSheet)
         
-        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { (delete) in
+        let delete = UIAlertAction(title: "Delete", style: .default, handler: { (delete) in
             //write code to delete a cell
             let deleteItem = self.collections[tag]
             self.collections.remove(at: tag)
@@ -319,7 +319,10 @@ extension CollectionsViewController: UICollectionViewDataSource,CollectionViewCe
                 print(error)
             }
         })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         actionSheet.addAction(delete)
+        actionSheet.addAction(cancel)
         present(actionSheet, animated: true, completion: nil)
     }
     
