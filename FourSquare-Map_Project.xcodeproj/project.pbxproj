@@ -32,6 +32,7 @@
 		85BDAE5B237DA4A0000E6CFA /* AddVenueToCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BDAE5A237DA49F000E6CFA /* AddVenueToCollectionViewController.swift */; };
 		85BDAE5D237DADC6000E6CFA /* AddVenueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BDAE5C237DADC6000E6CFA /* AddVenueCollectionViewCell.swift */; };
 		85BDAE6223806F74000E6CFA /* testFourSquareAPI.json in Resources */ = {isa = PBXBuildFile; fileRef = 85BDAE6023806D62000E6CFA /* testFourSquareAPI.json */; };
+		85BDAE6423807156000E6CFA /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BDAE6323807156000E6CFA /* Secret.swift */; };
 		916455C936D082268CE5BDFE /* Pods_FourSquare_Map_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E97296F280CC534B61BE350 /* Pods_FourSquare_Map_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		85BDAE5A237DA49F000E6CFA /* AddVenueToCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVenueToCollectionViewController.swift; sourceTree = "<group>"; };
 		85BDAE5C237DADC6000E6CFA /* AddVenueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVenueCollectionViewCell.swift; sourceTree = "<group>"; };
 		85BDAE6023806D62000E6CFA /* testFourSquareAPI.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testFourSquareAPI.json; sourceTree = "<group>"; };
+		85BDAE6323807156000E6CFA /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = View/Secret.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		857926902370AF0B0063332D = {
 			isa = PBXGroup;
 			children = (
+				85BDAE6323807156000E6CFA /* Secret.swift */,
 				857926DA2371155A0063332D /* View */,
 				857926D9237115240063332D /* View Controllers */,
 				857926DB2371156C0063332D /* Models */,
@@ -377,6 +380,7 @@
 				857926DF2371CD820063332D /* ResultListTableViewCell.swift in Sources */,
 				85BDAE5B237DA4A0000E6CFA /* AddVenueToCollectionViewController.swift in Sources */,
 				857926CB2370BB800063332D /* AppError.swift in Sources */,
+				85BDAE6423807156000E6CFA /* Secret.swift in Sources */,
 				857926DD237116830063332D /* ResultListViewController.swift in Sources */,
 				857926D02370BBED0063332D /* VenueModel.swift in Sources */,
 				857926E82374A36B0063332D /* PhotoModel.swift in Sources */,
