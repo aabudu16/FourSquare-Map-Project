@@ -145,6 +145,7 @@ class MapViewController: UIViewController {
 
  """)
     }
+    // generic reusable alert
     private func showGenericAlert(with title: String, and message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "ok", style: .cancel)

@@ -152,7 +152,7 @@ class AddVenueToCollectionViewController: UIViewController {
         }
         
         @objc func createButtonPressed(){
-            self.saveUserInput()
+            self.saveUserInput(savedVenue: [])
         }
         
         @objc func checkTextFieldInput(){
@@ -175,7 +175,7 @@ class AddVenueToCollectionViewController: UIViewController {
         }
         
         // save persisted data
-        private func saveUserInput(){
+    private func saveUserInput(savedVenue:[Venue]){
             guard let imageData = genericCollectionImage.image?.jpegData(compressionQuality: 0.7) else {return}
             guard let collectionName = collectionTextField.text else {return}
             
@@ -291,10 +291,10 @@ class AddVenueToCollectionViewController: UIViewController {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to add to this collection", preferredStyle: .actionSheet)
             let yes = UIAlertAction(title: "Yes", style: .default) { (true) in
     
-                  let fav = CollectionModel(collectionName: selectedCollection.collectionName, date: self.currentDate(), venueImage: imageData, savedVenue: self.favorite)
+                  let favoritedVenue = CollectionModel(collectionName: selectedCollection.collectionName, date: self.currentDate(), venueImage: imageData, savedVenue: self.favorite)
                
                 do{
-                    try CollectionPersistenceHelper.manager.save(entry: fav)
+                    try CollectionPersistenceHelper.manager.save(entry: favoritedVenue)
                 }catch{
                     print(error)
                 }

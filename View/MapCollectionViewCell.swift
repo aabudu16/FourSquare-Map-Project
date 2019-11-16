@@ -30,11 +30,19 @@ class MapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var moreButton:UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "delete.right.fill"), for: .normal)
+        button.tintColor = .red
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureImageViewConstraints()
         configureDateLabelConstraints()
         configureVenueLabelConstraints()
+        configureMoreButtonConstraints()
         
     }
     
@@ -59,6 +67,14 @@ class MapCollectionViewCell: UICollectionViewCell {
         venueLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([venueLabel.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor), venueLabel.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor), venueLabel.bottomAnchor.constraint(equalTo: self.dateLabel.topAnchor,constant: 5), venueLabel.heightAnchor.constraint(equalToConstant: 20)])
+    }
+    
+    private func configureMoreButtonConstraints(){
+        addSubview(moreButton)
+        
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([moreButton.topAnchor.constraint(equalTo: self.topAnchor), moreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120), moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),moreButton.heightAnchor.constraint(equalToConstant: 40)])
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

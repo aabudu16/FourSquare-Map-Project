@@ -12,7 +12,7 @@ import UIKit
 enum collectionIdentifiers:String{
     case collectionCell
 }
-class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
+class CollectionsViewController: UIViewController {
     //MARK: -- Bar buttons
     
     var collections = [CollectionModel](){
@@ -87,6 +87,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         button.addTarget(self, action: #selector(createButtonPressed), for: .touchUpInside)
         return button
     }()
+    
     
     //MARK: LifeCycle
     override func viewDidLoad() {
@@ -244,6 +245,8 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         self.createButton.isEnabled = false
     }
     
+    //MARK: Private Constraints function
+    
     private func configureCollectionViewConstraints(){
         self.view.addSubview(collectionView)
         
@@ -284,6 +287,7 @@ class CollectionsViewController: UIViewController, UIGestureRecognizerDelegate {
         
         NSLayoutConstraint.activate([addToCollectionLabel.topAnchor.constraint(equalTo: self.createButton.bottomAnchor, constant: 100), addToCollectionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), addToCollectionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor), addToCollectionLabel.heightAnchor.constraint(equalToConstant: 40)])
     }
+    
 }
 
 //MARK: Extensions
