@@ -192,7 +192,7 @@ class CollectionsViewController: UIViewController {
         
         showAlertToLoadCollection(with: "Success", and: "Created a new collection ")
     }
-  
+    
     private func loadUserInput(){
         do{
             collections = try CollectionPersistenceHelper.manager.getEntries()
@@ -303,7 +303,26 @@ extension CollectionsViewController: UICollectionViewDelegate{
     }
 }
 
-extension CollectionsViewController: UICollectionViewDataSource{
+extension CollectionsViewController: UICollectionViewDataSource,CollectionViewCellDelegate{
+    
+    func actionSheet(tag: Int) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { (delete) in
+            //write code to delete a cell
+            let deleteItem = self.collections[tag]
+            self.collections.remove(at: tag)
+            
+            do {
+                try CollectionPersistenceHelper.manager.deleteFavorite(with: deleteItem.collectionName)
+            } catch {
+                print(error)
+            }
+        })
+        actionSheet.addAction(delete)
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collections.count
     }
@@ -312,8 +331,9 @@ extension CollectionsViewController: UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionIdentifiers.collectionCell.rawValue, for: indexPath) as? MapCollectionViewCell else {return UICollectionViewCell()}
         let info = collections[indexPath.item]
         
-    
         
+        cell.delegate = self
+        cell.moreButton.tag = indexPath.item
         cell.imageView.image = UIImage(data: info.venueImage)
         cell.dateLabel.text = info.date
         cell.venueLabel.text = info.collectionName

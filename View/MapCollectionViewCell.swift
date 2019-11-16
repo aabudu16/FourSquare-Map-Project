@@ -8,7 +8,14 @@
 
 import UIKit
 
+
+protocol CollectionViewCellDelegate: AnyObject {
+    func actionSheet(tag: Int)
+}
 class MapCollectionViewCell: UICollectionViewCell {
+    //MARK: Properties
+    weak var delegate: CollectionViewCellDelegate?
+    
     lazy var imageView:UIImageView = {
         let image = UIImageView()
         return image
@@ -34,6 +41,7 @@ class MapCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(systemName: "delete.right.fill"), for: .normal)
         button.tintColor = .red
+        button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -46,6 +54,12 @@ class MapCollectionViewCell: UICollectionViewCell {
         
     }
     
+    //MARK: @objc function
+    @objc func moreButtonPressed(_ sender: UIButton){
+        delegate?.actionSheet(tag: sender.tag)
+    }
+    
+    //MARK: Private constraints function
     private func configureImageViewConstraints(){
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +88,7 @@ class MapCollectionViewCell: UICollectionViewCell {
         
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([moreButton.topAnchor.constraint(equalTo: self.topAnchor), moreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120), moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),moreButton.heightAnchor.constraint(equalToConstant: 40)])
+        NSLayoutConstraint.activate([moreButton.topAnchor.constraint(equalTo: self.topAnchor), moreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 140), moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),moreButton.heightAnchor.constraint(equalToConstant: 40)])
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
