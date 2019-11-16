@@ -13,7 +13,6 @@
 		857926A62370AF100063332D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 857926A52370AF100063332D /* Assets.xcassets */; };
 		857926A92370AF100063332D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 857926A72370AF100063332D /* LaunchScreen.storyboard */; };
 		857926B42370AF110063332D /* FourSquare_Map_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926B32370AF110063332D /* FourSquare_Map_ProjectTests.swift */; };
-		857926BF2370BA220063332D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926BE2370BA220063332D /* Secrets.swift */; };
 		857926CA2370BB800063332D /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C32370BB800063332D /* NetworkHelper.swift */; };
 		857926CB2370BB800063332D /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C42370BB800063332D /* AppError.swift */; };
 		857926CE2370BB800063332D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857926C72370BB800063332D /* ImageHelper.swift */; };
@@ -60,7 +59,6 @@
 		857926AF2370AF110063332D /* FourSquare-Map_ProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FourSquare-Map_ProjectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		857926B32370AF110063332D /* FourSquare_Map_ProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquare_Map_ProjectTests.swift; sourceTree = "<group>"; };
 		857926B52370AF110063332D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		857926BE2370BA220063332D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		857926C32370BB800063332D /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		857926C42370BB800063332D /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		857926C72370BB800063332D /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 		857926902370AF0B0063332D = {
 			isa = PBXGroup;
 			children = (
-				857926BE2370BA220063332D /* Secrets.swift */,
 				857926DA2371155A0063332D /* View */,
 				857926D9237115240063332D /* View Controllers */,
 				857926DB2371156C0063332D /* Models */,
@@ -381,7 +378,6 @@
 				85BDAE5B237DA4A0000E6CFA /* AddVenueToCollectionViewController.swift in Sources */,
 				857926CB2370BB800063332D /* AppError.swift in Sources */,
 				857926DD237116830063332D /* ResultListViewController.swift in Sources */,
-				857926BF2370BA220063332D /* Secrets.swift in Sources */,
 				857926D02370BBED0063332D /* VenueModel.swift in Sources */,
 				857926E82374A36B0063332D /* PhotoModel.swift in Sources */,
 				8579269D2370AF0B0063332D /* AppDelegate.swift in Sources */,
